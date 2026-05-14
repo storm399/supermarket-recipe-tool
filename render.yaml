@@ -1,0 +1,68 @@
+# Render Blueprint voor de Supermarkt Recepten Tool
+#
+# Pushen naar GitHub en in Render een Blueprint maken op basis van dit
+# bestand. Render leest de services hieronder en zet ze allemaal op.
+
+databases:
+  - name: supermarkt-recepten-db
+    plan: free
+    databaseName: supermarkt_recepten
+    user: supermarkt
+
+services:
+  - type: web
+    name: supermarkt-recepten-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: USE_MOCK_SCRAPERS
+        value: "true"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: supermarkt-recepten-db
+          property: connectionString
+      - key: CORS_ORIGINS
+        sync: false
+      - key: OPENFOODFACTS_USER_AGENT
+        sync: false
+      - key: SCRAPER_INTERVAL_HOURS
+        value: "24"
+      - key: LLM_API_KEY
+        sync: false
+
+  - type: web
+    name: supermarkt-recepten-web
+    runtime: node
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm run preview -- --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: VITE_API_URL
+        sync: false
+
+  - type: cron
+    name: supermarkt-recepten-fetch
+    runtime: python
+    plan: free
+    rootDir: backend
+    schedule: "0 4 * * *"   # elke dag om 04:00 UTC
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m app.jobs.fetch_offers
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: USE_MOCK_SCRAPERS
+        value: "true"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: supermarkt-recepten-db
+          property: connectionString
+      - key: OPENFOODFACTS_USER_AGENT
+        sync: false
