@@ -12,4 +12,11 @@ export default defineConfig({
       },
     },
   },
+  preview: {
+    host: true,
+    port: 4173,
+    // Render servert de preview onder onrender.com; Vite blokkeert
+    // vreemde hostnames standaard (DNS-rebinding-bescherming).
+    allowedHosts: [".onrender.com", "localhost"],
+  },
 });
