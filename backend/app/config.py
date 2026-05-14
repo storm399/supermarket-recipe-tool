@@ -23,7 +23,13 @@ class Settings(BaseSettings):
     SCRAPER_TIMEOUT: int = 20
     USE_MOCK_SCRAPERS: bool = True
 
-    CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
+    CORS_ORIGINS: str = (
+        "http://localhost:5173,http://localhost:3000,"
+        "https://supermarkt-recepten-web.onrender.com"
+    )
+    # Sta alle *.onrender.com toe via regex zodat preview-deploys of
+    # hernoemingen niet hoeven te wachten op een env-var aanpassing.
+    CORS_ORIGIN_REGEX: str = r"https://.*\.onrender\.com"
 
     @property
     def cors_origins_list(self) -> list[str]:

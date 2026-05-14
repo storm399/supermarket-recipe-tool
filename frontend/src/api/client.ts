@@ -6,7 +6,21 @@ import type {
   Supermarket,
 } from "../types";
 
-const API_BASE = import.meta.env.VITE_API_URL || "";
+function resolveApiBase(): string {
+  const fromEnv = import.meta.env.VITE_API_URL;
+  if (fromEnv) return fromEnv;
+  // Productie-fallback: als de frontend op onrender draait, leid de
+  // requests naar de gepaarde API-service.
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host === "supermarkt-recepten-web.onrender.com") {
+      return "https://supermarkt-recepten-api.onrender.com";
+    }
+  }
+  return "";
+}
+
+const API_BASE = resolveApiBase();
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
