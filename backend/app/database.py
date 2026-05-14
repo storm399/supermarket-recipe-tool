@@ -5,10 +5,21 @@ from typing import Generator
 from app.config import settings
 
 
-connect_args = {"check_same_thread": False} if settings.DATABASE_URL.startswith("sqlite") else {}
+def _normalize_db_url(url: str) -> str:
+    """Render levert PostgreSQL-URLs met het legacy 'postgres://' schema.
+    SQLAlchemy 2.0 accepteert dat niet meer, dus zetten we het om."""
+    if url.startswith("postgres://"):
+        return "postgresql+psycopg2://" + url[len("postgres://"):]
+    if url.startswith("postgresql://") and "+" not in url.split("://", 1)[0]:
+        return "postgresql+psycopg2://" + url[len("postgresql://"):]
+    return url
+
+
+DATABASE_URL = _normalize_db_url(settings.DATABASE_URL)
+connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
 
 engine = create_engine(
-    settings.DATABASE_URL,
+    DATABASE_URL,
     connect_args=connect_args,
     pool_pre_ping=True,
     future=True,
