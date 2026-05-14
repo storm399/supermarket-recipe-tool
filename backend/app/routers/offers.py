@@ -61,6 +61,7 @@ def list_offers(
     min_discount: float | None = Query(None, ge=0, le=100),
     has_image: bool = Query(False),
     source: str | None = Query(None),
+    sort: str = Query("price-asc", description="price-asc|price-desc|discount-desc|name-asc"),
     limit: int = Query(50, ge=1, le=1000),
     offset: int = Query(0, ge=0),
     db: Session = Depends(get_db),
@@ -72,7 +73,15 @@ def list_offers(
         max_price=max_price, min_discount=min_discount, has_image=has_image, source=source,
     )
     total = query.count()
-    rows = query.order_by(Offer.sale_price.asc()).offset(offset).limit(limit).all()
+    if sort == "price-desc":
+        query = query.order_by(Offer.sale_price.desc())
+    elif sort == "discount-desc":
+        query = query.order_by(Offer.discount_percent.desc().nullslast(), Offer.sale_price.asc())
+    elif sort == "name-asc":
+        query = query.order_by(Offer.product_name.asc())
+    else:
+        query = query.order_by(Offer.sale_price.asc())
+    rows = query.offset(offset).limit(limit).all()
     return OfferListResponse(total=total, offers=[OfferOut.model_validate(o) for o in rows])
 
 

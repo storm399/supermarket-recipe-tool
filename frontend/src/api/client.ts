@@ -48,6 +48,7 @@ export interface OfferFilters {
   min_discount?: number;
   has_image?: boolean;
   source?: string;
+  sort?: string;
   limit?: number;
   offset?: number;
 }
@@ -65,6 +66,7 @@ function buildOfferParams(filters: OfferFilters): URLSearchParams {
   if (filters.min_discount != null) p.set("min_discount", String(filters.min_discount));
   if (filters.has_image) p.set("has_image", "true");
   if (filters.source) p.set("source", filters.source);
+  if (filters.sort) p.set("sort", filters.sort);
   if (filters.limit != null) p.set("limit", String(filters.limit));
   if (filters.offset != null) p.set("offset", String(filters.offset));
   return p;

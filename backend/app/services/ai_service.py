@@ -223,7 +223,7 @@ def _llm_response_to_recipe(
 
     image_key = (llm_recipe.meal_type or "diner").replace("-", "")
     from app.data.recipe_images import photo_url_for
-    photo_url = photo_url_for(image_key) or f"/recipe-images/{image_key}.svg"
+    photo_url = photo_url_for(image_key, title=llm_recipe.title) or f"/recipe-images/{image_key}.svg"
 
     return RecipeOut(
         title=llm_recipe.title,

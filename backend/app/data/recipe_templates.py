@@ -1521,6 +1521,779 @@ def _frietjes_oven() -> RecipeTemplate:
     }
 
 
+def _indiase_dal() -> RecipeTemplate:
+    return {
+        "title": "Indiase dal met rode linzen",
+        "description": "Romige, geurige dal met komijn, kurkuma en gember.",
+        "meal_type": "diner",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 10,
+        "cook_time_minutes": 25,
+        "diet_tags": ["vegetarisch", "vegan", "lactosevrij", "glutenvrij", "halal"],
+        "allergens": [],
+        "image_key": "curry",
+        "why_smart": "Rode linzen en basismixkruiden zijn structurele bonus-items — een vullende plant-based avondmaaltijd voor weinig geld.",
+        "serving_tips": ["Serveer met basmatirijst en naanbrood.", "Strooi verse koriander erover."],
+        "storage_tips": ["3 dagen houdbaar; smaak verbetert op dag 2.", "Goed in te vriezen tot 2 maanden."],
+        "variations": ["Voeg spinazie toe op het einde.", "Maak romiger met kokosmelk.", "Gebruik groene linzen voor stevigere structuur."],
+        "instructions": [
+            "Snipper de ui en hak de knoflook fijn.",
+            "Verhit 1 el olie in een hapjespan en fruit de ui 5 minuten glazig.",
+            "Voeg knoflook, 1 tl komijnzaad, 1 tl kurkuma en een snufje gember toe en bak 30 seconden tot het geurt.",
+            "Spoel de rode linzen onder koud water tot het water helder blijft.",
+            "Voeg de linzen, 1 blik gepelde tomaten en 500 ml water toe.",
+            "Breng aan de kook, draai het vuur laag en laat 20 minuten zachtjes pruttelen tot de linzen uit elkaar vallen.",
+            "Roer regelmatig en voeg eventueel meer water toe voor de gewenste dikte.",
+            "Breng op smaak met peper, zout en een scheutje citroensap en serveer met rijst.",
+        ],
+        "ingredients": [
+            {"name": "Rode linzen", "keywords": ["linzen", "rode linzen"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Gepelde tomaten", "keywords": ["gepelde tomaten", "tomaten", "tomatenpassata"], "grams_per_serving": 200, "unit": "g"},
+            {"name": "Ui", "keywords": ["ui"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Knoflook", "keywords": ["knoflook"], "grams_per_serving": 5, "unit": "g"},
+            {"name": "Basmati rijst", "keywords": ["basmati", "rijst"], "grams_per_serving": 70, "unit": "g"},
+            {"name": "Olijfolie", "keywords": ["olijfolie", "zonnebloemolie", "olie"], "grams_per_serving": 10, "unit": "ml", "is_pantry": True},
+        ],
+    }
+
+
+def _shakshuka() -> RecipeTemplate:
+    return {
+        "title": "Shakshuka — eieren in pittige tomatensaus",
+        "description": "Noord-Afrikaanse klassieker, perfect voor lunch of weekendontbijt.",
+        "meal_type": "lunch",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 10,
+        "cook_time_minutes": 20,
+        "diet_tags": ["vegetarisch", "lactosevrij", "halal"],
+        "allergens": ["ei"],
+        "image_key": "shakshuka",
+        "why_smart": "Eieren, paprika en gepelde tomaten zijn klassieke aanbiedingen — samen een bijzondere maaltijd.",
+        "serving_tips": ["Eet met versgebakken brood om in de saus te dippen.", "Strooi feta of geitenkaas erover."],
+        "storage_tips": ["Saus zonder eieren 3 dagen houdbaar.", "Eieren vers toevoegen bij opnieuw opwarmen."],
+        "variations": ["Voeg merguez-worst toe voor pittiger.", "Maak groener door spinazie door de saus.", "Roer harissa erdoor voor extra pit."],
+        "instructions": [
+            "Snipper de ui en snijd de paprika in repen.",
+            "Verhit 1 el olijfolie in een diepe koekenpan op middelhoog vuur en fruit ui 4 minuten.",
+            "Voeg paprika toe en bak 5 minuten tot ze zacht zijn.",
+            "Roer 1 tl gemalen komijn, 1 tl paprikapoeder en een snufje chili erdoor.",
+            "Voeg de gepelde tomaten en een geperst teentje knoflook toe en breng aan de kook.",
+            "Laat 8 minuten pruttelen tot de saus dikker wordt; breng op smaak met peper en zout.",
+            "Maak 4 kuiltjes in de saus en breek in elk een ei.",
+            "Dek af met deksel en gaar 5-7 minuten tot het eiwit gestold is maar de dooier nog smeuïg.",
+        ],
+        "ingredients": [
+            {"name": "Eieren", "keywords": ["eieren"], "grams_per_serving": 120, "unit": "g"},
+            {"name": "Paprika", "keywords": ["paprika", "rode paprika"], "grams_per_serving": 150, "unit": "g"},
+            {"name": "Gepelde tomaten", "keywords": ["gepelde tomaten", "tomaten", "tomatenpassata"], "grams_per_serving": 200, "unit": "g"},
+            {"name": "Ui", "keywords": ["ui"], "grams_per_serving": 60, "unit": "g"},
+            {"name": "Knoflook", "keywords": ["knoflook"], "grams_per_serving": 5, "unit": "g"},
+            {"name": "Olijfolie", "keywords": ["olijfolie", "olie"], "grams_per_serving": 10, "unit": "ml", "is_pantry": True},
+        ],
+    }
+
+
+def _buddha_bowl() -> RecipeTemplate:
+    return {
+        "title": "Buddha bowl met geroosterde wortel en quinoa",
+        "description": "Voedzame regenboog-bowl, perfecte meal-prep voor de week.",
+        "meal_type": "meal-prep",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 15,
+        "cook_time_minutes": 25,
+        "diet_tags": ["vegetarisch", "vegan", "lactosevrij", "glutenvrij", "halal"],
+        "allergens": [],
+        "image_key": "bowl",
+        "why_smart": "Quinoa, wortel en bonen geven veel vezels en eiwit — combineer met aanbieding-groenten voor afwisseling.",
+        "serving_tips": ["Werk af met tahini-dressing en zaden.", "Drizzle een scheutje citroensap erover."],
+        "storage_tips": ["3 dagen houdbaar; bewaar dressing apart.", "Niet invriezen."],
+        "variations": ["Voeg gegrilde tofu toe.", "Gebruik couscous of bulgur in plaats van quinoa.", "Top met granaatappelpitjes."],
+        "instructions": [
+            "Verwarm de oven voor op 200°C.",
+            "Schil de wortels en snijd in stokjes; hussel met 1 el olijfolie, komijn, peper en zout.",
+            "Verdeel over een bakplaat met bakpapier en rooster 25 minuten, halverwege keren.",
+            "Spoel de quinoa en kook in 15 minuten gaar in dubbele hoeveelheid water met een snuf zout.",
+            "Spoel de kikkererwten af onder koud water en laat uitlekken.",
+            "Snijd de avocado en cherrytomaten in stukjes.",
+            "Verdeel de quinoa over 2 kommen en schik groente, kikkererwten en avocado erop.",
+            "Maak een snelle dressing van 2 el yoghurt of tahini, sap van een halve citroen, peper en zout.",
+        ],
+        "ingredients": [
+            {"name": "Quinoa", "keywords": ["quinoa"], "grams_per_serving": 70, "unit": "g"},
+            {"name": "Wortelen", "keywords": ["wortel", "bospeen"], "grams_per_serving": 150, "unit": "g"},
+            {"name": "Kikkererwten", "keywords": ["kikkererwten"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Avocado", "keywords": ["avocado"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Cherrytomaten", "keywords": ["cherrytomaten", "tomaten"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Olijfolie", "keywords": ["olijfolie"], "grams_per_serving": 10, "unit": "ml", "is_pantry": True},
+        ],
+    }
+
+
+def _tomatensoep() -> RecipeTemplate:
+    return {
+        "title": "Tomatensoep met balletjes",
+        "description": "Klassieke Hollandse tomatensoep, in 25 minuten klaar.",
+        "meal_type": "lunch",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 10,
+        "cook_time_minutes": 20,
+        "diet_tags": ["halal"],
+        "allergens": [],
+        "image_key": "soep",
+        "why_smart": "Gepelde tomaten of passata + een klein beetje gehakt geven een rijke soep voor weinig geld.",
+        "serving_tips": ["Lekker met een sneetje stokbrood.", "Bestrooi met verse basilicum."],
+        "storage_tips": ["3 dagen houdbaar.", "Soep zonder balletjes goed in te vriezen."],
+        "variations": ["Voeg vermicelli toe voor extra structuur.", "Gebruik kipgehakt in plaats van rund.", "Maak vegetarisch met sojaballetjes."],
+        "instructions": [
+            "Snipper de ui en snijd de wortel fijn.",
+            "Verhit 1 el olie in een soeppan en fruit de ui en wortel 5 minuten.",
+            "Voeg een geperst teentje knoflook en 1 tl Italiaanse kruiden toe.",
+            "Schenk de gepelde tomaten en 750 ml water of bouillon erbij en breng aan de kook.",
+            "Draai 12-15 balletjes van het gehakt met een snufje peper en zout.",
+            "Laat de balletjes 10 minuten meekoken in de soep.",
+            "Pureer eventueel een deel van de soep met een staafmixer voor een romige textuur.",
+            "Proef en breng op smaak met peper, zout en eventueel een snufje suiker.",
+        ],
+        "ingredients": [
+            {"name": "Gepelde tomaten", "keywords": ["gepelde tomaten", "tomatenpassata", "tomaten"], "grams_per_serving": 250, "unit": "g"},
+            {"name": "Rundergehakt", "keywords": ["rundergehakt", "gehakt", "kipgehakt"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Wortelen", "keywords": ["wortel", "bospeen"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Ui", "keywords": ["ui"], "grams_per_serving": 60, "unit": "g"},
+            {"name": "Knoflook", "keywords": ["knoflook"], "grams_per_serving": 3, "unit": "g", "is_pantry": True},
+            {"name": "Italiaanse kruiden", "keywords": ["italiaanse kruiden"], "grams_per_serving": 1, "unit": "g", "is_pantry": True},
+        ],
+    }
+
+
+def _kipsoep() -> RecipeTemplate:
+    return {
+        "title": "Kipsoep met vermicelli",
+        "description": "Verwarmende soep voor koude dagen, lekker hartig.",
+        "meal_type": "lunch",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 10,
+        "cook_time_minutes": 25,
+        "diet_tags": ["halal"],
+        "allergens": ["gluten"],
+        "image_key": "soep",
+        "why_smart": "Kipfilet en wortelen zitten vaak in de bonus; een handvol vermicelli maakt de soep vullend.",
+        "serving_tips": ["Strooi verse peterselie erover.", "Een paar druppels maggi geven extra smaak."],
+        "storage_tips": ["2 dagen houdbaar; vermicelli pas op het laatst toevoegen.", "Goed in te vriezen zonder vermicelli."],
+        "variations": ["Voeg paksoi of spinazie toe.", "Gebruik tortelloni in plaats van vermicelli.", "Voeg een scheutje sojasaus toe voor umami."],
+        "instructions": [
+            "Snijd de kipfilet in kleine blokjes en bestrooi met peper.",
+            "Snijd de wortel in plakjes en de prei in dunne ringen.",
+            "Verhit 1 el olijfolie in een soeppan en bak de kip 4 minuten goudbruin.",
+            "Voeg wortel en prei toe en bak 3 minuten mee.",
+            "Schenk 1 liter water erbij met een bouillonblokje en breng aan de kook.",
+            "Laat 10 minuten zachtjes pruttelen tot de groente zacht is.",
+            "Voeg een handvol vermicelli toe en kook 4 minuten extra.",
+            "Breng op smaak met peper, zout en verse peterselie.",
+        ],
+        "ingredients": [
+            {"name": "Kipfilet", "keywords": ["kipfilet", "kipgyros"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Wortelen", "keywords": ["wortel", "bospeen"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Prei", "keywords": ["prei"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Pasta", "keywords": ["spaghetti", "macaroni", "pasta"], "grams_per_serving": 40, "unit": "g"},
+            {"name": "Bouillonblokje", "keywords": ["bouillonblokje"], "grams_per_serving": 2, "unit": "g", "is_pantry": True},
+            {"name": "Olijfolie", "keywords": ["olijfolie"], "grams_per_serving": 10, "unit": "ml", "is_pantry": True},
+        ],
+    }
+
+
+def _vegan_chili() -> RecipeTemplate:
+    return {
+        "title": "Vegan chili sin carne",
+        "description": "Pittige Mexicaanse stoofschotel boordevol eiwit en vezels.",
+        "meal_type": "diner",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 10,
+        "cook_time_minutes": 25,
+        "diet_tags": ["vegetarisch", "vegan", "lactosevrij", "glutenvrij", "halal"],
+        "allergens": [],
+        "image_key": "curry",
+        "why_smart": "Kidneybonen, kikkererwten en tomaten zijn populaire bonus-items — samen een complete vegan maaltijd.",
+        "serving_tips": ["Lekker met avocado, koriander en tortillachips.", "Een lepel yoghurt of plantaardige zure room erop."],
+        "storage_tips": ["3 dagen houdbaar; smaak verbetert.", "Perfect om in te vriezen."],
+        "variations": ["Voeg maïs toe voor extra zoet.", "Gebruik linzen in plaats van kidneybonen.", "Voeg een blokje pure chocolade toe voor diepere smaak."],
+        "instructions": [
+            "Snipper de ui en hak de knoflook fijn.",
+            "Verhit 1 el olijfolie in een hapjespan op middelhoog vuur en fruit de ui 4 minuten.",
+            "Voeg knoflook, 2 tl gemalen komijn en 1 tl paprikapoeder toe en bak kort mee.",
+            "Snijd de paprika in blokjes en voeg toe; bak 5 minuten.",
+            "Spoel kidneybonen en kikkererwten af en doe samen met gepelde tomaten in de pan.",
+            "Voeg een snufje chili of cayenne toe naar smaak.",
+            "Laat 15 minuten zachtjes pruttelen tot de saus dikker wordt.",
+            "Breng op smaak met peper, zout en een scheutje azijn; serveer met rijst of tortilla's.",
+        ],
+        "ingredients": [
+            {"name": "Kidneybonen", "keywords": ["kidneybonen", "bonen"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Kikkererwten", "keywords": ["kikkererwten"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Gepelde tomaten", "keywords": ["gepelde tomaten", "tomatenpassata", "tomaten"], "grams_per_serving": 200, "unit": "g"},
+            {"name": "Paprika", "keywords": ["paprika", "rode paprika"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Ui", "keywords": ["ui"], "grams_per_serving": 60, "unit": "g"},
+            {"name": "Knoflook", "keywords": ["knoflook"], "grams_per_serving": 5, "unit": "g"},
+            {"name": "Basmati rijst", "keywords": ["basmati", "rijst"], "grams_per_serving": 70, "unit": "g"},
+            {"name": "Olijfolie", "keywords": ["olijfolie"], "grams_per_serving": 10, "unit": "ml", "is_pantry": True},
+        ],
+    }
+
+
+def _chia_pudding() -> RecipeTemplate:
+    return {
+        "title": "Chia pudding met bessen",
+        "description": "Maak 's avonds, eet 's ochtends — eiwit- en omega-3-rijk ontbijt.",
+        "meal_type": "ontbijt",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 5,
+        "cook_time_minutes": 0,
+        "diet_tags": ["vegetarisch", "vegan", "lactosevrij", "halal"],
+        "allergens": [],
+        "image_key": "smoothie",
+        "why_smart": "Plant-based melk (soja/amandel) en bessen vormen samen een voedzaam ontbijt zonder gedoe.",
+        "serving_tips": ["Top met geroosterde noten.", "Drizzle ahornsiroop of honing."],
+        "storage_tips": ["3 dagen houdbaar in afgesloten pot.", "Niet invriezen."],
+        "variations": ["Vervang bessen door mango.", "Maak chocolade-versie met cacaopoeder.", "Voeg geraspte kokos toe."],
+        "instructions": [
+            "Pak een glazen pot of bakje met deksel.",
+            "Doe 3 el chiazaad in de pot.",
+            "Schenk 200 ml sojadrink of amandeldrink erbij.",
+            "Voeg 1 tl ahornsiroop of honing toe voor wat zoetigheid.",
+            "Roer goed door zodat de chiazaden niet plakken; laat 5 minuten staan en roer nogmaals.",
+            "Sluit de pot en zet minstens 4 uur (bij voorkeur 8) in de koelkast.",
+            "Roer kort door voor het serveren; voeg eventueel extra plant-based melk toe als het te dik is.",
+            "Verdeel de bessen erop en strooi muesli of noten erover.",
+        ],
+        "ingredients": [
+            {"name": "Sojadrink", "keywords": ["sojadrink", "amandeldrink", "melk"], "grams_per_serving": 200, "unit": "ml"},
+            {"name": "Blauwe bessen", "keywords": ["blauwe bessen", "bessen", "frambozen"], "grams_per_serving": 60, "unit": "g"},
+            {"name": "Muesli", "keywords": ["muesli", "cruesli", "havermout"], "grams_per_serving": 20, "unit": "g"},
+        ],
+    }
+
+
+def _pad_thai() -> RecipeTemplate:
+    return {
+        "title": "Pad Thai met tofu en groente",
+        "description": "Thaise klassieker met zoet-pittige tamarinde-saus.",
+        "meal_type": "diner",
+        "difficulty": "gemiddeld",
+        "prep_time_minutes": 15,
+        "cook_time_minutes": 12,
+        "diet_tags": ["vegetarisch", "vegan", "lactosevrij", "halal"],
+        "allergens": ["soja", "noten"],
+        "image_key": "noodles",
+        "why_smart": "Tofu en taugé zitten regelmatig in de aanbieding bij Aziatische schappen; een snel feest voor weinig geld.",
+        "serving_tips": ["Garneer met geroosterde pinda's en limoen.", "Strooi verse koriander erover."],
+        "storage_tips": ["Direct opeten; noodles worden later slap.", "Saus 1 week houdbaar in koelkast."],
+        "variations": ["Vervang tofu door garnalen of kip.", "Maak pittiger met sriracha.", "Voeg cashewnoten toe."],
+        "instructions": [
+            "Week de rijstnoedels 8 minuten in heet water tot ze net buigzaam zijn.",
+            "Snijd de tofu in blokjes en dep droog met keukenpapier.",
+            "Snipper een teentje knoflook en snijd de bosui in ringen.",
+            "Maak een saus van 2 el sojasaus, 1 el suiker, 1 el rijst-azijn en wat sriracha.",
+            "Verhit 2 el olie in een wok op hoog vuur en bak de tofu 5 minuten goudbruin.",
+            "Voeg knoflook en de wortel of paprika toe en roerbak 2 minuten.",
+            "Schuif de groenten opzij, klop 2 eieren los en bak ze kort tot ze net stollen.",
+            "Voeg de noedels en de saus toe, roerbak alles snel door elkaar en werk af met taugé en pinda's.",
+        ],
+        "ingredients": [
+            {"name": "Pasta", "keywords": ["spaghetti", "noodles", "pasta"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Tofu", "keywords": ["tofu", "tempeh"], "grams_per_serving": 120, "unit": "g"},
+            {"name": "Eieren", "keywords": ["eieren"], "grams_per_serving": 50, "unit": "g"},
+            {"name": "Paprika", "keywords": ["paprika", "wortel"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Knoflook", "keywords": ["knoflook"], "grams_per_serving": 5, "unit": "g"},
+            {"name": "Sojasaus", "keywords": ["sojasaus"], "grams_per_serving": 15, "unit": "ml", "is_pantry": True},
+        ],
+    }
+
+
+def _ovenkip() -> RecipeTemplate:
+    return {
+        "title": "Ovenkip met groente en aardappel",
+        "description": "Alles op één bakplaat — minimale afwas, maximale smaak.",
+        "meal_type": "diner",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 15,
+        "cook_time_minutes": 35,
+        "diet_tags": ["halal", "lactosevrij"],
+        "allergens": [],
+        "image_key": "ovenschotel",
+        "why_smart": "Kipfilet of kipdijen + seizoensgroente + aardappel = compleet diner uit één plaat in de oven.",
+        "serving_tips": ["Lekker met een dot mosterd of mayonaise.", "Strooi verse rozemarijn over de aardappels."],
+        "storage_tips": ["2 dagen houdbaar.", "Opwarmen op 180°C voor knapperig resultaat."],
+        "variations": ["Vervang kip door kabeljauwfilet (kortere oventijd).", "Voeg paprika en courgette toe.", "Gebruik zoete aardappel."],
+        "instructions": [
+            "Verwarm de oven voor op 200°C.",
+            "Snijd de aardappels in partjes en de wortels in stokjes.",
+            "Hussel de groente in een kom met 2 el olijfolie, peper, zout en paprikapoeder.",
+            "Verdeel over een grote bakplaat met bakpapier.",
+            "Bestrooi de kipfilet met peper, zout en gedroogde tijm.",
+            "Schuif de groente 15 minuten in de oven en leg dan de kip ertussen.",
+            "Bak nog 20 minuten tot de kip gaar is (kerntemp 75°C) en de groente goudbruin.",
+            "Verdeel over borden en knijp een schijfje citroen erover.",
+        ],
+        "ingredients": [
+            {"name": "Kipfilet", "keywords": ["kipfilet", "biologische kipfilet", "kipgyros"], "grams_per_serving": 150, "unit": "g"},
+            {"name": "Aardappelen", "keywords": ["aardappel"], "grams_per_serving": 200, "unit": "g"},
+            {"name": "Wortelen", "keywords": ["wortel", "bospeen"], "grams_per_serving": 120, "unit": "g"},
+            {"name": "Ui", "keywords": ["ui", "rode ui"], "grams_per_serving": 60, "unit": "g"},
+            {"name": "Olijfolie", "keywords": ["olijfolie"], "grams_per_serving": 15, "unit": "ml", "is_pantry": True},
+        ],
+    }
+
+
+def _broccoli_schotel() -> RecipeTemplate:
+    return {
+        "title": "Broccoli-ovenschotel met kip en kaas",
+        "description": "Hollandse comfort-ovenschotel met crispy kaaslaag.",
+        "meal_type": "diner",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 15,
+        "cook_time_minutes": 25,
+        "diet_tags": ["halal"],
+        "allergens": ["lactose"],
+        "image_key": "ovenschotel",
+        "why_smart": "Broccoli, kipfilet en kaas in de aanbieding = klassieke schotel voor 2 dagen.",
+        "serving_tips": ["Lekker met aardappelpuree of rijst.", "Een lepel mosterd erbij is heerlijk."],
+        "storage_tips": ["2 dagen houdbaar.", "Niet invriezen — kaas wordt rubberig."],
+        "variations": ["Vervang kip door tofu of zalm.", "Voeg gebakken champignons toe.", "Strooi paneermeel over voor extra crunch."],
+        "instructions": [
+            "Verwarm de oven voor op 200°C.",
+            "Snijd de broccoli in roosjes en kook 5 minuten beetgaar.",
+            "Snijd de kip in blokjes en bak 6 minuten goudbruin in 1 el olijfolie.",
+            "Smelt 30 g boter in een steelpan, roer 30 g bloem erdoor en voeg al roerend 400 ml melk toe; kook 3 minuten tot het bindt.",
+            "Breng de saus op smaak met peper, zout, nootmuskaat en 50 g geraspte kaas.",
+            "Meng kip en broccoli met de saus in een ingevette ovenschaal.",
+            "Bestrooi rijkelijk met de rest van de geraspte kaas.",
+            "Bak 20 minuten tot de bovenkant goudbruin en bubbelend is.",
+        ],
+        "ingredients": [
+            {"name": "Kipfilet", "keywords": ["kipfilet"], "grams_per_serving": 130, "unit": "g"},
+            {"name": "Broccoli", "keywords": ["broccoli"], "grams_per_serving": 200, "unit": "g"},
+            {"name": "Kaas", "keywords": ["kaas"], "grams_per_serving": 70, "unit": "g"},
+            {"name": "Melk", "keywords": ["melk", "halfvolle melk"], "grams_per_serving": 200, "unit": "ml"},
+            {"name": "Boter", "keywords": ["boter", "roomboter"], "grams_per_serving": 15, "unit": "g", "is_pantry": True},
+        ],
+    }
+
+
+def _courgette_linguine() -> RecipeTemplate:
+    return {
+        "title": "Courgettelinguine met zalm",
+        "description": "Snelle Italiaanse pasta met romige saus.",
+        "meal_type": "diner",
+        "difficulty": "gemiddeld",
+        "prep_time_minutes": 10,
+        "cook_time_minutes": 15,
+        "diet_tags": [],
+        "allergens": ["gluten", "lactose", "vis"],
+        "image_key": "pasta",
+        "why_smart": "Zalm en courgette samen in een seizoensaanbieding levert een verfijnd avondmaal.",
+        "serving_tips": ["Strooi rasp van een halve citroen erover.", "Een handje rucola voor de frisheid."],
+        "storage_tips": ["1 dag houdbaar.", "Niet invriezen."],
+        "variations": ["Vervang zalm door kabeljauw of garnalen.", "Maak vegetarisch met geroosterde paprika.", "Voeg cherrytomaten toe."],
+        "instructions": [
+            "Breng een ruime pan water aan de kook met een snuf zout.",
+            "Snijd de zalmfilet in blokjes van 2 cm.",
+            "Snijd de courgette in dunne plakjes.",
+            "Kook de pasta volgens de verpakking.",
+            "Verhit 1 el olijfolie in een koekenpan en bak de zalm 3-4 minuten op middelhoog vuur.",
+            "Voeg de courgette toe en bak 3 minuten mee.",
+            "Schenk een scheutje slagroom of melk over de zalm en laat 2 minuten zachtjes inkoken.",
+            "Schep de uitgelekte pasta door de saus, breng op smaak met peper, zout en citroenrasp.",
+        ],
+        "ingredients": [
+            {"name": "Zalmfilet", "keywords": ["zalm", "zalmmoot"], "grams_per_serving": 120, "unit": "g"},
+            {"name": "Pasta", "keywords": ["tagliatelle", "spaghetti", "pasta"], "grams_per_serving": 90, "unit": "g"},
+            {"name": "Courgette", "keywords": ["courgette"], "grams_per_serving": 150, "unit": "g"},
+            {"name": "Slagroom", "keywords": ["slagroom", "melk"], "grams_per_serving": 50, "unit": "ml"},
+            {"name": "Olijfolie", "keywords": ["olijfolie"], "grams_per_serving": 10, "unit": "ml", "is_pantry": True},
+        ],
+    }
+
+
+def _snelle_nasi() -> RecipeTemplate:
+    return {
+        "title": "Snelle nasi met groente en ei",
+        "description": "Indonesisch geïnspireerde gebakken rijst — restjes opmaken.",
+        "meal_type": "diner",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 10,
+        "cook_time_minutes": 15,
+        "diet_tags": ["vegetarisch", "halal"],
+        "allergens": ["ei", "soja"],
+        "image_key": "roerbak",
+        "why_smart": "Eieren, rijst en gemengde groente: alle drie meestal in de bonus, perfect voor een snel diner.",
+        "serving_tips": ["Lekker met kroepoek en sambal.", "Strooi gefrituurde uitjes erover."],
+        "storage_tips": ["2 dagen houdbaar.", "Goed in te vriezen tot 2 maanden."],
+        "variations": ["Voeg kipreepjes of garnalen toe.", "Gebruik volkoren rijst.", "Maak pittig met sambal oelek."],
+        "instructions": [
+            "Kook de rijst volgens de verpakking en laat afkoelen (overgebleven rijst werkt het beste).",
+            "Snipper de ui en hak de knoflook fijn.",
+            "Snijd de paprika in blokjes en de wortel in dunne reepjes.",
+            "Verhit 2 el olie in een wok op hoog vuur en bak ui en knoflook 2 minuten.",
+            "Voeg de groente toe en roerbak 5 minuten tot ze beetgaar zijn.",
+            "Schuif de groente opzij, klop de eieren los en bak ze kort tot ze net stollen.",
+            "Voeg de rijst, 2 el ketjap manis en een scheutje sojasaus toe en hussel alles 3 minuten door elkaar.",
+            "Breng op smaak met peper en serveer met kroepoek.",
+        ],
+        "ingredients": [
+            {"name": "Basmati rijst", "keywords": ["basmati", "rijst"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Eieren", "keywords": ["eieren"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Paprika", "keywords": ["paprika"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Wortelen", "keywords": ["wortel", "bospeen"], "grams_per_serving": 60, "unit": "g"},
+            {"name": "Ui", "keywords": ["ui"], "grams_per_serving": 60, "unit": "g"},
+            {"name": "Knoflook", "keywords": ["knoflook"], "grams_per_serving": 5, "unit": "g"},
+            {"name": "Sojasaus", "keywords": ["sojasaus"], "grams_per_serving": 15, "unit": "ml", "is_pantry": True},
+        ],
+    }
+
+
+def _vissticks_rijst() -> RecipeTemplate:
+    return {
+        "title": "Vissticks met rijst en doperwten",
+        "description": "Snel weekendgerecht dat kinderen leuk vinden.",
+        "meal_type": "diner",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 5,
+        "cook_time_minutes": 20,
+        "diet_tags": [],
+        "allergens": ["gluten", "vis"],
+        "image_key": "default",
+        "why_smart": "Vissticks en diepvries doperwten zijn vaak in de aanbieding — supersnel diner.",
+        "serving_tips": ["Lekker met tartaarsaus of citroen.", "Strooi peterselie erover."],
+        "storage_tips": ["1 dag houdbaar; vissticks worden zacht.", "Niet invriezen na bereiding."],
+        "variations": ["Vervang vissticks door kipnuggets.", "Maak het pittig met paprikapoeder over de sticks.", "Voeg geroosterde wortel toe."],
+        "instructions": [
+            "Verwarm de oven voor op 220°C.",
+            "Leg de vissticks op een met bakpapier beklede bakplaat.",
+            "Bak ze 12-15 minuten en draai halverwege voor gelijkmatige knapperigheid.",
+            "Kook ondertussen de rijst in 12 minuten gaar in dubbele hoeveelheid water.",
+            "Verwarm de doperwten 3 minuten in een steelpan met een klein beetje water.",
+            "Roer een klontje boter en een snufje peper door de doperwten.",
+            "Verdeel de rijst en doperwten over borden.",
+            "Leg de vissticks erop en serveer met een schijfje citroen.",
+        ],
+        "ingredients": [
+            {"name": "Vissticks", "keywords": ["vissticks"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Basmati rijst", "keywords": ["basmati", "rijst"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Doperwten diepvries", "keywords": ["doperwten", "diepvries doperwten"], "grams_per_serving": 120, "unit": "g"},
+            {"name": "Boter", "keywords": ["boter", "roomboter"], "grams_per_serving": 5, "unit": "g", "is_pantry": True},
+        ],
+    }
+
+
+def _kapsalon() -> RecipeTemplate:
+    return {
+        "title": "Kapsalon uit de oven",
+        "description": "Rotterdamse klassieker, in een lichte ovenversie.",
+        "meal_type": "diner",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 10,
+        "cook_time_minutes": 25,
+        "diet_tags": ["halal"],
+        "allergens": ["lactose"],
+        "image_key": "kapsalon",
+        "why_smart": "Kipgyros/shoarma en kaas zitten regelmatig in de bonus — kapsalon zonder friettrek.",
+        "serving_tips": ["Lekker met knoflooksaus en sambal.", "Strooi verse peterselie erover."],
+        "storage_tips": ["1 dag houdbaar; bovenlaag wordt zacht.", "Niet invriezen."],
+        "variations": ["Vervang kipgyros door falafel voor vegetarisch.", "Voeg jalapeño's toe voor pit.", "Gebruik zoete aardappel-friet."],
+        "instructions": [
+            "Verwarm de oven voor op 220°C.",
+            "Snijd de aardappels in dunne reepjes en hussel met 1 el olie, peper en zout.",
+            "Verdeel op een bakplaat met bakpapier en bak 20 minuten.",
+            "Verhit ondertussen 1 el olie in een koekenpan en bak de kipgyros 6 minuten goudbruin.",
+            "Haal de aardappels uit de oven en verdeel de kipgyros erover.",
+            "Strooi rijkelijk geraspte kaas over de kip.",
+            "Schuif terug in de oven en bak 5 minuten tot de kaas smelt.",
+            "Bedek met sla, tomaatjes en een lepel knoflooksaus of yoghurt.",
+        ],
+        "ingredients": [
+            {"name": "Kipgyros", "keywords": ["kipgyros", "kipfilet"], "grams_per_serving": 150, "unit": "g"},
+            {"name": "Aardappelen", "keywords": ["aardappel"], "grams_per_serving": 250, "unit": "g"},
+            {"name": "Kaas", "keywords": ["kaas"], "grams_per_serving": 60, "unit": "g"},
+            {"name": "IJsbergsla", "keywords": ["sla", "ijsbergsla"], "grams_per_serving": 30, "unit": "g"},
+            {"name": "Cherrytomaten", "keywords": ["cherrytomaten", "tomaten"], "grams_per_serving": 50, "unit": "g"},
+            {"name": "Yoghurt", "keywords": ["yoghurt"], "grams_per_serving": 30, "unit": "g"},
+        ],
+    }
+
+
+def _hartige_muffins() -> RecipeTemplate:
+    return {
+        "title": "Hartige muffins met spinazie en kaas",
+        "description": "Voor lunchbox of borrelhapje.",
+        "meal_type": "snack",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 15,
+        "cook_time_minutes": 22,
+        "diet_tags": ["vegetarisch", "halal"],
+        "allergens": ["ei", "gluten", "lactose"],
+        "image_key": "default",
+        "why_smart": "Eieren, kaas en spinazie zijn doorlopend in de bonus — maak een hele schaal voor de week.",
+        "serving_tips": ["Lekker bij een kom soep.", "Geef warm of op kamertemperatuur."],
+        "storage_tips": ["3 dagen houdbaar in luchtdichte trommel.", "Goed in te vriezen tot 2 maanden."],
+        "variations": ["Voeg gerookte zalm of ham toe.", "Vervang spinazie door geroosterde paprika.", "Gebruik feta of geitenkaas."],
+        "instructions": [
+            "Verwarm de oven voor op 180°C en vet een muffinvorm in (of gebruik papieren cups).",
+            "Hak de spinazie grof en doe in een grote kom.",
+            "Voeg de geraspte kaas en een gesnipperde lente-ui toe.",
+            "Klop 3 eieren los met 150 ml melk en een snufje peper en zout.",
+            "Voeg 150 g bloem en 1 tl bakpoeder toe en roer tot een glad beslag.",
+            "Schep het beslag in de muffinvorm tot driekwart vol.",
+            "Bak 20-22 minuten tot de muffins gerezen en goudbruin zijn.",
+            "Laat 5 minuten afkoelen voor je ze uit de vorm haalt.",
+        ],
+        "ingredients": [
+            {"name": "Eieren", "keywords": ["eieren"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Spinazie", "keywords": ["spinazie", "diepvries spinazie"], "grams_per_serving": 60, "unit": "g"},
+            {"name": "Kaas", "keywords": ["kaas", "feta"], "grams_per_serving": 60, "unit": "g"},
+            {"name": "Melk", "keywords": ["melk"], "grams_per_serving": 75, "unit": "ml"},
+        ],
+    }
+
+
+def _appelflappen() -> RecipeTemplate:
+    return {
+        "title": "Snelle appelflappen",
+        "description": "Hollandse traktatie met bladerdeeg en kaneel.",
+        "meal_type": "snack",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 10,
+        "cook_time_minutes": 20,
+        "diet_tags": ["vegetarisch", "halal"],
+        "allergens": ["gluten", "lactose"],
+        "image_key": "default",
+        "why_smart": "Appels en bladerdeeg zijn vaak in de aanbieding — extra fijn op zondag.",
+        "serving_tips": ["Bestuif met poedersuiker.", "Lekker met een bolletje vanille-ijs."],
+        "storage_tips": ["1 dag houdbaar in luchtdichte doos.", "Beste warm."],
+        "variations": ["Voeg rozijnen toe.", "Strooi gehakte noten over.", "Maak peer-versie met peer en kaneel."],
+        "instructions": [
+            "Verwarm de oven voor op 200°C.",
+            "Schil de appels en snijd in kleine blokjes.",
+            "Meng appel met 2 el suiker, 1 tl kaneel en eventueel rozijnen.",
+            "Snijd het bladerdeeg in vierkanten van 10x10 cm.",
+            "Schep een lepel appelvulling op elk vierkant.",
+            "Vouw dicht tot een driehoek en druk de randen aan met een vork.",
+            "Bestrijk met een geklopt ei en strooi suiker erover.",
+            "Bak 18-20 minuten op een bakplaat met bakpapier tot goudbruin en gerezen.",
+        ],
+        "ingredients": [
+            {"name": "Appel", "keywords": ["appel", "appels"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Eieren", "keywords": ["eieren"], "grams_per_serving": 25, "unit": "g"},
+        ],
+    }
+
+
+def _tortellini_room() -> RecipeTemplate:
+    return {
+        "title": "Tortellini in roomsaus met spinazie",
+        "description": "5 ingrediënten, klaar in 15 minuten.",
+        "meal_type": "diner",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 5,
+        "cook_time_minutes": 12,
+        "diet_tags": ["vegetarisch", "halal"],
+        "allergens": ["gluten", "lactose", "ei"],
+        "image_key": "pasta",
+        "why_smart": "Tortellini en slagroom zijn beide aanbiedingsfavorieten — een snel én chic gerecht.",
+        "serving_tips": ["Strooi Parmezaan en zwarte peper erover.", "Een handje rucola op het laatst voor frisheid."],
+        "storage_tips": ["1 dag houdbaar.", "Niet invriezen — saus splijt."],
+        "variations": ["Voeg gerookte zalm toe.", "Maak met cherrytomaten en knoflook.", "Gebruik melk in plaats van slagroom."],
+        "instructions": [
+            "Breng een ruime pan water aan de kook met een snuf zout.",
+            "Kook de tortellini volgens de verpakking (meestal 4-5 minuten).",
+            "Verhit 1 el boter in een ruime koekenpan op middelhoog vuur.",
+            "Fruit een gesnipperd teentje knoflook 30 seconden.",
+            "Schenk de slagroom erbij en breng zachtjes aan de kook.",
+            "Voeg de spinazie toe en roer tot deze geslonken is.",
+            "Giet de tortellini af en schep door de saus.",
+            "Breng op smaak met peper, nootmuskaat en strooi Parmezaan erover.",
+        ],
+        "ingredients": [
+            {"name": "Pasta", "keywords": ["tortellini", "tagliatelle", "pasta"], "grams_per_serving": 120, "unit": "g"},
+            {"name": "Slagroom", "keywords": ["slagroom"], "grams_per_serving": 80, "unit": "ml"},
+            {"name": "Spinazie", "keywords": ["spinazie"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Knoflook", "keywords": ["knoflook"], "grams_per_serving": 5, "unit": "g", "is_pantry": True},
+            {"name": "Boter", "keywords": ["boter", "roomboter"], "grams_per_serving": 10, "unit": "g", "is_pantry": True},
+        ],
+    }
+
+
+def _broodjes_tonijn() -> RecipeTemplate:
+    return {
+        "title": "Broodjes tonijn-avocado",
+        "description": "Snelle lunch met veel goede vetten.",
+        "meal_type": "lunch",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 8,
+        "cook_time_minutes": 0,
+        "diet_tags": ["halal"],
+        "allergens": ["vis", "gluten"],
+        "image_key": "wrap",
+        "why_smart": "Tonijn in blik en brood zijn structurele aanbiedingen; avocado maakt het cremig.",
+        "serving_tips": ["Knijp een schijfje citroen erover.", "Strooi versgemalen peper."],
+        "storage_tips": ["Direct opeten — avocado verkleurt.", "Niet invriezen."],
+        "variations": ["Vervang tonijn door zalm.", "Voeg gehakte rode ui en kappertjes toe.", "Gebruik bagel of pita."],
+        "instructions": [
+            "Laat de tonijn goed uitlekken boven de gootsteen.",
+            "Doe de tonijn in een kom en prak grof met een vork.",
+            "Halveer de avocado en schep het vruchtvlees uit de schil.",
+            "Prak de avocado bij de tonijn en breng op smaak met peper en citroensap.",
+            "Voeg een lepel yoghurt of mayonaise toe voor extra romigheid.",
+            "Snijd de broodjes open en rooster ze kort in een broodrooster.",
+            "Verdeel de tonijn-avocadosalade royaal over de broodjes.",
+            "Top met komkommerplakjes en een handje rucola.",
+        ],
+        "ingredients": [
+            {"name": "Tonijn in blik", "keywords": ["tonijn"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Avocado", "keywords": ["avocado"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Brood", "keywords": ["volkoren brood", "bruin brood", "pistolets", "brood"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Komkommer", "keywords": ["komkommer"], "grams_per_serving": 50, "unit": "g"},
+            {"name": "Yoghurt", "keywords": ["yoghurt", "magere yoghurt"], "grams_per_serving": 20, "unit": "g"},
+        ],
+    }
+
+
+def _broodpudding() -> RecipeTemplate:
+    return {
+        "title": "Broodpudding met appel en kaneel",
+        "description": "Oud brood opmaken? Perfecte zoete ovenschotel.",
+        "meal_type": "snack",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 10,
+        "cook_time_minutes": 35,
+        "diet_tags": ["vegetarisch", "halal"],
+        "allergens": ["gluten", "lactose", "ei"],
+        "image_key": "default",
+        "why_smart": "Oud brood + melk + ei voorkomt voedselverspilling én levert een trakteerwaardig dessert.",
+        "serving_tips": ["Lekker met vanille-ijs of slagroom.", "Strooi poedersuiker erover."],
+        "storage_tips": ["3 dagen houdbaar in koelkast.", "Lekker koud of opgewarmd."],
+        "variations": ["Gebruik bessen in plaats van appel.", "Voeg rozijnen of cranberries toe.", "Maak hartig met kaas en spek."],
+        "instructions": [
+            "Verwarm de oven voor op 180°C en vet een kleine ovenschaal in.",
+            "Snijd oud brood in blokjes en doe in de schaal.",
+            "Schil de appels en snijd in dunne plakjes; verdeel over het brood.",
+            "Klop 3 eieren los met 400 ml melk, 3 el suiker en 1 tl kaneel.",
+            "Schenk het ei-mengsel over het brood en druk lichtjes aan zodat alles wordt geweekt.",
+            "Laat 10 minuten staan zodat het brood het vocht opneemt.",
+            "Strooi nog een snufje kaneel en wat suiker over.",
+            "Bak 30-35 minuten tot de bovenkant goudbruin is en het ei gestold.",
+        ],
+        "ingredients": [
+            {"name": "Brood", "keywords": ["volkoren brood", "bruin brood", "stokbrood", "brood"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Appel", "keywords": ["appel", "appels"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Eieren", "keywords": ["eieren"], "grams_per_serving": 75, "unit": "g"},
+            {"name": "Melk", "keywords": ["melk", "halfvolle melk"], "grams_per_serving": 200, "unit": "ml"},
+        ],
+    }
+
+
+def _italiaanse_salade() -> RecipeTemplate:
+    return {
+        "title": "Italiaanse tomatensalade met mozzarella",
+        "description": "Simpele caprese — lekker als bijgerecht of lunch.",
+        "meal_type": "lunch",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 10,
+        "cook_time_minutes": 0,
+        "diet_tags": ["vegetarisch", "glutenvrij", "halal"],
+        "allergens": ["lactose"],
+        "image_key": "salade",
+        "why_smart": "Tomaten en mozzarella zijn vaak in de aanbieding — perfecte lichte zomerse maaltijd.",
+        "serving_tips": ["Lekker met versgebakken brood.", "Drizzle balsamico-azijn over."],
+        "storage_tips": ["Direct opeten voor beste smaak.", "Niet invriezen."],
+        "variations": ["Voeg verse basilicum en gegrilde courgette toe.", "Strooi pijnboompitten erover.", "Gebruik burrata in plaats van mozzarella."],
+        "instructions": [
+            "Was de tomaten en snijd in dikke plakken.",
+            "Snijd de mozzarella in vergelijkbare plakken.",
+            "Leg om en om plakjes tomaat en mozzarella op een grote schaal.",
+            "Strooi een snufje grof zeezout en versgemalen peper over.",
+            "Drizzle ruim olijfolie over de schaal.",
+            "Knijp eventueel een paar druppels citroensap erover.",
+            "Strooi blaadjes verse basilicum tussen de plakken.",
+            "Laat 5 minuten staan en serveer met brood om in de jus te dippen.",
+        ],
+        "ingredients": [
+            {"name": "Tomaten", "keywords": ["tomaten", "roma tomaten", "trostomaten"], "grams_per_serving": 200, "unit": "g"},
+            {"name": "Mozzarella", "keywords": ["mozzarella"], "grams_per_serving": 100, "unit": "g"},
+            {"name": "Olijfolie", "keywords": ["olijfolie"], "grams_per_serving": 15, "unit": "ml", "is_pantry": True},
+        ],
+    }
+
+
+def _groente_lasagne() -> RecipeTemplate:
+    return {
+        "title": "Vegetarische groenten-lasagne",
+        "description": "Lasagne zonder gehakt, maar wel rijk en vullend.",
+        "meal_type": "diner",
+        "difficulty": "uitdagend",
+        "prep_time_minutes": 25,
+        "cook_time_minutes": 40,
+        "diet_tags": ["vegetarisch", "halal"],
+        "allergens": ["gluten", "lactose"],
+        "image_key": "lasagne",
+        "why_smart": "Courgette, aubergine en lasagnebladen vaak samen in de folder; goedkope, goede ovenschotel.",
+        "serving_tips": ["Laat 10 minuten rusten voor het snijden.", "Lekker met groene salade."],
+        "storage_tips": ["3 dagen houdbaar in koelkast.", "Goed in te vriezen tot 3 maanden."],
+        "variations": ["Voeg spinazie toe tussen de laagjes.", "Gebruik geitenkaas.", "Maak vegan met sojaroom en plantaardige kaas."],
+        "instructions": [
+            "Verwarm de oven voor op 180°C.",
+            "Snijd de courgette en aubergine in plakken van een halve cm.",
+            "Bestrooi met zout en laat 10 minuten ontwateren; dep droog.",
+            "Verhit 2 el olijfolie in een grote pan en bak de groente in porties 3 minuten per kant.",
+            "Maak een bechamel: smelt 30 g boter, roer 30 g bloem erdoor en voeg al roerend 500 ml melk toe; kook 4 minuten.",
+            "Vet een ovenschaal in en leg afwisselend gepelde tomaten met Italiaanse kruiden, gegrilde groente, lasagnebladen en bechamel.",
+            "Eindig met bechamel en strooi rijkelijk geraspte kaas over.",
+            "Bak 35-40 minuten tot de lasagne goudbruin en bubbelend is.",
+        ],
+        "ingredients": [
+            {"name": "Lasagnebladen", "keywords": ["lasagne"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Courgette", "keywords": ["courgette"], "grams_per_serving": 150, "unit": "g"},
+            {"name": "Aubergine", "keywords": ["aubergine"], "grams_per_serving": 150, "unit": "g"},
+            {"name": "Gepelde tomaten", "keywords": ["gepelde tomaten", "tomatenpassata", "tomaten"], "grams_per_serving": 200, "unit": "g"},
+            {"name": "Melk", "keywords": ["melk", "halfvolle melk"], "grams_per_serving": 200, "unit": "ml"},
+            {"name": "Kaas", "keywords": ["kaas"], "grams_per_serving": 70, "unit": "g"},
+            {"name": "Boter", "keywords": ["boter"], "grams_per_serving": 15, "unit": "g", "is_pantry": True},
+        ],
+    }
+
+
+def _groentespiesjes() -> RecipeTemplate:
+    return {
+        "title": "Groentespiesjes met halloumi van de bbq",
+        "description": "Vegetarische BBQ-favoriet of grillpan-snack.",
+        "meal_type": "snack",
+        "difficulty": "makkelijk",
+        "prep_time_minutes": 15,
+        "cook_time_minutes": 12,
+        "diet_tags": ["vegetarisch", "glutenvrij", "halal"],
+        "allergens": ["lactose"],
+        "image_key": "default",
+        "why_smart": "Paprika, courgette en mozzarella samen vaak in de bonus — kleurrijk en feestelijk.",
+        "serving_tips": ["Lekker met tzatziki of pesto.", "Drizzle citroenolie eroverheen."],
+        "storage_tips": ["1 dag houdbaar in koelkast.", "Lekker koud op een salade."],
+        "variations": ["Vervang halloumi door champignons.", "Voeg cherrytomaten en rode ui toe.", "Marineer in pesto."],
+        "instructions": [
+            "Snijd de courgette in dikke plakken (1 cm).",
+            "Snijd de paprika in vierkanten.",
+            "Snijd de mozzarella of halloumi in vergelijkbare blokjes.",
+            "Rijg om en om groente en kaas aan satéprikkers.",
+            "Hussel met 2 el olijfolie, gedroogde oregano, peper en zout.",
+            "Verhit een grillpan of bbq op middelhoog-hoog vuur.",
+            "Gril de spiesjes 4 minuten per kant tot mooi gegrild en de kaas zacht is.",
+            "Knijp citroensap erover en serveer met een dipsaus naar keuze.",
+        ],
+        "ingredients": [
+            {"name": "Courgette", "keywords": ["courgette"], "grams_per_serving": 120, "unit": "g"},
+            {"name": "Paprika", "keywords": ["paprika"], "grams_per_serving": 120, "unit": "g"},
+            {"name": "Mozzarella", "keywords": ["mozzarella", "kaas"], "grams_per_serving": 80, "unit": "g"},
+            {"name": "Olijfolie", "keywords": ["olijfolie"], "grams_per_serving": 15, "unit": "ml", "is_pantry": True},
+        ],
+    }
+
+
 RECIPE_TEMPLATES: list[RecipeTemplate] = [
     _kip_pasta(),
     _tofu_roerbak(),
@@ -1564,4 +2337,26 @@ RECIPE_TEMPLATES: list[RecipeTemplate] = [
     _bulgur_salade(),
     _stoofvlees(),
     _frietjes_oven(),
+    _indiase_dal(),
+    _shakshuka(),
+    _buddha_bowl(),
+    _tomatensoep(),
+    _kipsoep(),
+    _vegan_chili(),
+    _chia_pudding(),
+    _pad_thai(),
+    _ovenkip(),
+    _broccoli_schotel(),
+    _courgette_linguine(),
+    _snelle_nasi(),
+    _vissticks_rijst(),
+    _kapsalon(),
+    _hartige_muffins(),
+    _appelflappen(),
+    _tortellini_room(),
+    _broodjes_tonijn(),
+    _broodpudding(),
+    _italiaanse_salade(),
+    _groente_lasagne(),
+    _groentespiesjes(),
 ]

@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import { Navbar } from "./components/Navbar";
+import FavoritesPage from "./pages/FavoritesPage";
 import HomePage from "./pages/HomePage";
 import OffersPage from "./pages/OffersPage";
 import RecipeDetailPage from "./pages/RecipeDetailPage";
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/aanbiedingen" element={<OffersPage />} />
           <Route path="/recepten" element={<RecipesPage />} />
           <Route path="/recepten/:id" element={<RecipeDetailPage />} />
+          <Route path="/favorieten" element={<FavoritesPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
       </main>

@@ -272,7 +272,7 @@ def _build_recipe_from_template(
     cook_t = template.get("cook_time_minutes", 0) or 0
 
     image_key = template.get("image_key", "default")
-    photo_url = photo_url_for(image_key)
+    photo_url = photo_url_for(image_key, title=template["title"])
 
     return RecipeOut(
         title=template["title"],
@@ -390,12 +390,18 @@ def generate_recipes_rule_based(
             seen_titles.clear()
             rotation_idx += 1
 
-    # Sorteer op score - kosten heuristiek.
-    def sort_key(r: RecipeOut) -> float:
-        cost = r.cost_per_serving or 5.0
-        return -(r.health.score - cost * 3)
-
-    results.sort(key=sort_key)
+    sort_mode = getattr(request, "sort", "smart")
+    if sort_mode == "health-desc":
+        results.sort(key=lambda r: r.health.score, reverse=True)
+    elif sort_mode == "price-asc":
+        results.sort(key=lambda r: r.cost_per_serving or 999)
+    elif sort_mode == "time-asc":
+        results.sort(key=lambda r: r.total_time_minutes or 999)
+    else:
+        def sort_key(r: RecipeOut) -> float:
+            cost = r.cost_per_serving or 5.0
+            return -(r.health.score - cost * 3)
+        results.sort(key=sort_key)
 
     logger.info("recept-generatie klaar: %d recepten", len(results))
     return results[: request.count]

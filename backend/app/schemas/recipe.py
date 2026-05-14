@@ -25,6 +25,7 @@ class RecipeGenerateRequest(BaseModel):
     allow_multi_supermarket: bool = False
     exclude_ingredients: List[str] = Field(default_factory=list)
     count: int = Field(default=12, ge=1, le=24)
+    sort: Literal["smart", "health-desc", "price-asc", "time-asc"] = "smart"
     use_llm: bool = False
 
 

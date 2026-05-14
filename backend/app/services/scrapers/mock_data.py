@@ -196,6 +196,85 @@ PRODUCT_POOL: list[Product] = [
     Product("Wasmiddel vloeibaar", "huishouden", "l", 1.5, 5.99, "huishouden"),
     Product("Toiletpapier", "huishouden", "stuk", 8, 4.49, "huishouden"),
     Product("Tandpasta", "verzorging", "ml", 75, 1.99, "verzorging"),
+    # ---- extra producten voor grotere assortimentvariatie ----
+    # extra groente
+    Product("Sjalot", "groente", "g", 250, 1.29, "ui"),
+    Product("Bleekselderij", "groente", "stuk", 1, 1.49, "groente"),
+    Product("Radijs", "groente", "bos", 1, 0.99, "groente"),
+    Product("Snijbiet", "groente", "g", 300, 1.79, "spinazie"),
+    Product("Tuinkers", "groente", "stuk", 1, 0.79, "sla"),
+    Product("Zuurkool", "groente", "g", 500, 1.49, "zuurkool"),
+    # extra fruit
+    Product("Watermeloen partjes", "fruit", "g", 500, 2.99, "meloen"),
+    Product("Bramen", "fruit", "g", 125, 2.79, "framboos"),
+    Product("Granaatappel", "fruit", "stuk", 1, 1.99, "fruit"),
+    Product("Galiameloen", "fruit", "stuk", 1, 2.49, "meloen"),
+    Product("Nectarines", "fruit", "kg", 1.0, 2.99, "fruit"),
+    Product("Perziken", "fruit", "kg", 1.0, 2.99, "fruit"),
+    # extra vlees / vis
+    Product("Kalkoenfilet", "vlees", "g", 400, 6.99, "kip"),
+    Product("Kipdrumsticks", "vlees", "kg", 1.0, 4.99, "kip"),
+    Product("Spareribs", "vlees", "g", 700, 7.99, "spareribs"),
+    Product("Kabeljauwhaasje", "vis", "g", 250, 7.49, "vis"),
+    Product("Makreel gerookt", "vis", "g", 200, 3.49, "vis"),
+    Product("Mosselen", "vis", "kg", 1.0, 5.99, "mossel"),
+    # extra zuivel / kaas
+    Product("Schapenkwark", "zuivel", "g", 400, 2.49, "kwark"),
+    Product("Slagroomijs", "diepvries", "ml", 500, 2.79, "ijs"),
+    Product("Brie", "kaas", "g", 200, 3.49, "kaas"),
+    Product("Camembert", "kaas", "g", 250, 2.99, "kaas"),
+    Product("Edam jong belegen", "kaas", "g", 400, 4.79, "kaas"),
+    # extra pasta / rijst / graan
+    Product("Tortellini ricotta-spinazie", "pasta", "g", 250, 2.79, "pasta"),
+    Product("Pappardelle", "pasta", "g", 500, 2.29, "pasta"),
+    Product("Sushirijst", "rijst", "g", 500, 2.99, "rijst"),
+    Product("Polenta", "graan", "g", 500, 2.19, "graan"),
+    Product("Spelt", "graan", "g", 500, 2.79, "graan"),
+    # extra peulvrucht / blik
+    Product("Tomatenpuree", "blik", "g", 70, 0.59, "tomaat"),
+    Product("Olijven groen", "spread", "g", 250, 2.29, "olijf"),
+    Product("Sun-dried tomaten", "blik", "g", 200, 2.79, "tomaat"),
+    Product("Maïs in blik", "blik", "g", 285, 0.99, "mais"),
+    Product("Ananasstukjes in blik", "blik", "g", 425, 1.29, "ananas"),
+    # extra brood / wraps
+    Product("Tortillas", "brood", "stuk", 8, 1.99, "wrap"),
+    Product("Naanbrood", "brood", "stuk", 4, 2.49, "brood"),
+    Product("Croissants", "brood", "stuk", 4, 1.99, "croissant"),
+    Product("Roggebrood", "brood", "stuk", 1, 2.29, "brood"),
+    # extra ontbijt
+    Product("Yoghurt drinkje", "zuivel", "ml", 500, 1.49, "yoghurt"),
+    Product("Smoothie aardbei-banaan", "drank", "ml", 250, 1.99, "smoothie"),
+    Product("Chia zaad", "ontbijt", "g", 250, 3.49, "chia"),
+    Product("Lijnzaad", "ontbijt", "g", 400, 1.99, "lijnzaad"),
+    # extra diepvries
+    Product("Diepvries frietjes", "diepvries", "g", 1000, 1.79, "friet"),
+    Product("Diepvries pizza margherita", "diepvries", "stuk", 1, 2.99, "pizza"),
+    Product("Diepvries lentepakketjes", "diepvries", "stuk", 8, 2.49, "lente"),
+    Product("Diepvries garnalen", "diepvries", "g", 250, 4.99, "garnaal"),
+    # extra snacks / spread
+    Product("Tahini", "spread", "g", 350, 3.79, "tahini"),
+    Product("Notenmix gezouten", "snack", "g", 200, 2.49, "noten"),
+    Product("Cashewnoten", "snack", "g", 200, 3.49, "noten"),
+    Product("Chocolade puur 70%", "snack", "g", 100, 1.99, "chocolade"),
+    Product("Kruidnoten", "snack", "g", 500, 2.49, "snoep"),
+    # extra dranken
+    Product("Cola light", "drank", "l", 1.5, 1.49, "frisdrank"),
+    Product("Spa rood", "drank", "l", 1.5, 1.29, "water"),
+    Product("Verse muntthee", "drank", "stuk", 20, 2.49, "thee"),
+    Product("Espresso bonen", "drank", "g", 500, 8.49, "koffie"),
+    Product("Sojadrink barista", "zuivelvervanger", "l", 1.0, 2.79, "soja"),
+    # extra olie / kruiden
+    Product("Sesamolie", "olie", "ml", 250, 3.49, "olie"),
+    Product("Balsamico-azijn", "olie", "ml", 500, 2.99, "azijn"),
+    Product("Verse koriander", "groente", "g", 50, 1.19, "kruiden"),
+    Product("Verse basilicum", "groente", "g", 30, 1.49, "kruiden"),
+    Product("Gemberwortel", "groente", "g", 100, 1.49, "gember"),
+    # extra biologisch
+    Product("Biologische rijst", "rijst", "g", 500, 2.49, "rijst", ("biologisch",)),
+    Product("Biologische volkoren pasta", "pasta", "g", 500, 2.49, "pasta", ("biologisch",)),
+    Product("Biologisch brood", "brood", "stuk", 1, 3.49, "brood", ("biologisch",)),
+    Product("Biologische tofu gerookt", "vleesvervanger", "g", 200, 2.79, "tofu", ("biologisch",)),
+    Product("Biologische bloembollen-honing", "spread", "g", 350, 5.99, "honing", ("biologisch",)),
 ]
 
 
@@ -211,16 +290,16 @@ class SupermarketProfile:
 
 
 PROFILES: dict[str, SupermarketProfile] = {
-    "jumbo":     SupermarketProfile(1.00, (0.55, 0.80), target_count=58),
-    "ah":        SupermarketProfile(1.05, (0.60, 0.85), premium_bias=0.2, target_count=62),
-    "lidl":      SupermarketProfile(0.85, (0.50, 0.75), budget_bias=0.3, target_count=54),
-    "aldi":      SupermarketProfile(0.85, (0.50, 0.75), budget_bias=0.3, target_count=52),
-    "hoogvliet": SupermarketProfile(0.95, (0.55, 0.80), target_count=52),
-    "ekoplaza":  SupermarketProfile(1.25, (0.65, 0.85), bio_bias=0.8, premium_bias=0.4, target_count=50),
-    "plus":      SupermarketProfile(1.02, (0.55, 0.80), target_count=54),
-    "dirk":      SupermarketProfile(0.88, (0.50, 0.75), budget_bias=0.2, target_count=52),
-    "vomar":     SupermarketProfile(0.95, (0.55, 0.80), target_count=50),
-    "coop":      SupermarketProfile(1.00, (0.55, 0.80), target_count=52),
+    "jumbo":     SupermarketProfile(1.00, (0.55, 0.80), target_count=85),
+    "ah":        SupermarketProfile(1.05, (0.60, 0.85), premium_bias=0.2, target_count=90),
+    "lidl":      SupermarketProfile(0.85, (0.50, 0.75), budget_bias=0.3, target_count=78),
+    "aldi":      SupermarketProfile(0.85, (0.50, 0.75), budget_bias=0.3, target_count=76),
+    "hoogvliet": SupermarketProfile(0.95, (0.55, 0.80), target_count=75),
+    "ekoplaza":  SupermarketProfile(1.25, (0.65, 0.85), bio_bias=0.8, premium_bias=0.4, target_count=70),
+    "plus":      SupermarketProfile(1.02, (0.55, 0.80), target_count=78),
+    "dirk":      SupermarketProfile(0.88, (0.50, 0.75), budget_bias=0.2, target_count=75),
+    "vomar":     SupermarketProfile(0.95, (0.55, 0.80), target_count=72),
+    "coop":      SupermarketProfile(1.00, (0.55, 0.80), target_count=75),
 }
 
 

@@ -147,5 +147,8 @@ export interface RecipeRequest {
   allow_multi_supermarket: boolean;
   exclude_ingredients: string[];
   count: number;
+  sort: "smart" | "health-desc" | "price-asc" | "time-asc";
   use_llm: boolean;
 }
+
+export type OfferSort = "price-asc" | "price-desc" | "discount-desc" | "name-asc";

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { api } from "../api/client";
 import { EmptyState } from "../components/EmptyState";
@@ -32,6 +32,7 @@ export default function RecipesPage() {
   const [allowMulti, setAllowMulti] = useState(false);
   const [exclude, setExclude] = useState<string>("");
   const [count, setCount] = useState(12);
+  const [sort, setSort] = useState<"smart" | "health-desc" | "price-asc" | "time-asc">("smart");
   const [useLlm, setUseLlm] = useState(false);
   const [llmAvailable, setLlmAvailable] = useState(false);
 
@@ -40,9 +41,18 @@ export default function RecipesPage() {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  const [searchParams] = useSearchParams();
+
   useEffect(() => {
     api.supermarkets().then(setSupermarkets).catch(() => {});
     api.recipesHealth().then((h) => setLlmAvailable(h.llm_available)).catch(() => {});
+    const preset = searchParams.get("preset");
+    if (preset === "vega") setDiets(["vegetarisch"]);
+    else if (preset === "vegan") setDiets(["vegan"]);
+    else if (preset === "budget") setMaxBudget("2.50");
+    else if (preset === "snel") setMaxPrep("20");
+    else if (preset === "gezond") setMinHealth("80");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function toggle<T>(value: T, list: T[], set: (l: T[]) => void) {
@@ -71,6 +81,7 @@ export default function RecipesPage() {
           .split(",")
           .map((s) => s.trim())
           .filter(Boolean),
+        sort,
         use_llm: useLlm && llmAvailable,
       });
       setRecipes(result);
@@ -89,6 +100,21 @@ export default function RecipesPage() {
     navigate(`/recepten/${idx}`);
   }
 
+  function applyLocalSort(items: Recipe[], mode: string): Recipe[] {
+    const arr = [...items];
+    if (mode === "health-desc") arr.sort((a, b) => b.health.score - a.health.score);
+    else if (mode === "price-asc") arr.sort((a, b) => (a.cost_per_serving ?? 999) - (b.cost_per_serving ?? 999));
+    else if (mode === "time-asc") arr.sort((a, b) => (a.total_time_minutes ?? 999) - (b.total_time_minutes ?? 999));
+    else arr.sort((a, b) => {
+      const ca = a.cost_per_serving ?? 5;
+      const cb = b.cost_per_serving ?? 5;
+      return (b.health.score - cb * 3) - (a.health.score - ca * 3);
+    });
+    return arr;
+  }
+
+  const sortedRecipes = applyLocalSort(recipes, sort);
+
   return (
     <div className="container">
       <header className="page-head">
@@ -97,6 +123,33 @@ export default function RecipesPage() {
           <p className="muted">Combineer aanbiedingen tot 12+ recepten met voedingsinfo en gezondheidsscore.</p>
         </div>
       </header>
+
+      <div className="quick-filters">
+        <button type="button" className="quick-filter" onClick={() => { setMaxPrep("20"); setMaxBudget(""); setDiets([]); }}>
+          <span aria-hidden>⏱️</span> Klaar in 20 min
+        </button>
+        <button type="button" className="quick-filter" onClick={() => { setMaxBudget("2.50"); }}>
+          <span aria-hidden>💰</span> Onder €2,50 p.p.
+        </button>
+        <button type="button" className="quick-filter" onClick={() => { setMinHealth("80"); }}>
+          <span aria-hidden>🥗</span> Gezond (≥80)
+        </button>
+        <button type="button" className="quick-filter" onClick={() => { setMinProtein("25"); }}>
+          <span aria-hidden>💪</span> Eiwitrijk
+        </button>
+        <button type="button" className="quick-filter" onClick={() => { setDiets(["vegetarisch"]); }}>
+          <span aria-hidden>🌱</span> Vegetarisch
+        </button>
+        <button type="button" className="quick-filter" onClick={() => { setDiets(["vegan"]); }}>
+          <span aria-hidden>🥦</span> Vegan
+        </button>
+        <button type="button" className="quick-filter" onClick={() => { setMealTypes(["ontbijt"]); }}>
+          <span aria-hidden>🍳</span> Ontbijt
+        </button>
+        <button type="button" className="quick-filter" onClick={() => { setMealTypes(["meal-prep"]); }}>
+          <span aria-hidden>🥗</span> Meal prep
+        </button>
+      </div>
 
       <form className="card filter-card" onSubmit={onSubmit}>
         <h2>1. Kies je supermarkt(en)</h2>
@@ -207,10 +260,21 @@ export default function RecipesPage() {
 
       {recipes.length > 0 && (
         <>
-          <h2 style={{ marginTop: "1.5rem" }}>{recipes.length} voorgestelde recepten</h2>
+          <div className="results-header" style={{ marginTop: "1.5rem" }}>
+            <h2 style={{ margin: 0 }}>{recipes.length} voorgestelde recepten</h2>
+            <label className="sort-label">
+              Sorteer:
+              <select value={sort} onChange={(e) => setSort(e.target.value as any)}>
+                <option value="smart">Aanbevolen</option>
+                <option value="health-desc">Gezondste eerst</option>
+                <option value="price-asc">Goedkoopste eerst</option>
+                <option value="time-asc">Snelste eerst</option>
+              </select>
+            </label>
+          </div>
           <div className="grid recipes">
-            {recipes.map((r, i) => (
-              <RecipeCard key={i} recipe={r} onSelect={() => openDetail(r, i)} />
+            {sortedRecipes.map((r, i) => (
+              <RecipeCard key={r.title + i} recipe={r} onSelect={() => openDetail(r, recipes.indexOf(r))} />
             ))}
           </div>
         </>

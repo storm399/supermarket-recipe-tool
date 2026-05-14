@@ -1,4 +1,5 @@
 import type { Recipe } from "../types";
+import { useFavorites } from "../hooks/useFavorites";
 import { HealthScoreBadge } from "./HealthScoreBadge";
 import { RecipeImage } from "./RecipeImage";
 import { SupermarketLogo } from "./SupermarketLogo";
@@ -18,12 +19,27 @@ const MEAL_LABELS: Record<string, string> = {
 };
 
 export function RecipeCard({ recipe, onSelect }: Props) {
+  const { isFavorite, toggle } = useFavorites();
+  const fav = isFavorite(recipe);
   const multiSuper = recipe.supermarkets_used.length > 1;
+
   return (
     <article className="recipe-card" onClick={onSelect} role={onSelect ? "button" : undefined}>
       <div className="recipe-card-img">
         <RecipeImage recipe={recipe} />
         <span className="meal-pill">{MEAL_LABELS[recipe.meal_type] ?? recipe.meal_type}</span>
+        <button
+          type="button"
+          className={`favorite-btn ${fav ? "active" : ""}`}
+          aria-label={fav ? "Verwijder uit favorieten" : "Voeg toe aan favorieten"}
+          title={fav ? "Verwijder uit favorieten" : "Bewaar als favoriet"}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggle(recipe);
+          }}
+        >
+          {fav ? "♥" : "♡"}
+        </button>
         <div className="recipe-card-score">
           <HealthScoreBadge score={recipe.health.score} explanation={recipe.health.explanation} size={52} />
         </div>

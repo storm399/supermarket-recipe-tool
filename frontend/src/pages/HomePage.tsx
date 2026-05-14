@@ -37,6 +37,13 @@ export default function HomePage() {
             <Link to="/recepten" className="btn primary">Genereer recepten</Link>
             <Link to="/aanbiedingen" className="btn ghost">Bekijk aanbiedingen</Link>
           </div>
+          <div className="hero-quick-cta">
+            <Link to="/recepten?preset=vega" className="hero-quick">🌱 Vegetarisch</Link>
+            <Link to="/recepten?preset=budget" className="hero-quick">💰 Budget</Link>
+            <Link to="/recepten?preset=snel" className="hero-quick">⏱️ Snel klaar</Link>
+            <Link to="/recepten?preset=gezond" className="hero-quick">🥗 Gezond</Link>
+            <Link to="/favorieten" className="hero-quick">♥ Mijn favorieten</Link>
+          </div>
           {stats && (
             <div className="hero-stats">
               <div><b>{stats.total}</b><small>aanbiedingen</small></div>

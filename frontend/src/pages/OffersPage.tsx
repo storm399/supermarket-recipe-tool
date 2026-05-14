@@ -23,6 +23,7 @@ export default function OffersPage() {
   const [maxPrice, setMaxPrice] = useState<string>("");
   const [minDiscount, setMinDiscount] = useState<string>("");
   const [hasImage, setHasImage] = useState(false);
+  const [sort, setSort] = useState<string>("price-asc");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
@@ -46,8 +47,9 @@ export default function OffersPage() {
       max_price: maxPrice ? Number(maxPrice) : undefined,
       min_discount: minDiscount ? Number(minDiscount) : undefined,
       has_image: hasImage || undefined,
+      sort,
     }),
-    [selectedSlugs, filterCat, query, maxPrice, minDiscount, hasImage]
+    [selectedSlugs, filterCat, query, maxPrice, minDiscount, hasImage, sort]
   );
 
   useEffect(() => {
@@ -153,6 +155,32 @@ export default function OffersPage() {
 
       <section className="card filter-card">
         <h2>Filter aanbiedingen</h2>
+        <div className="quick-filters">
+          <button type="button" className="quick-filter" onClick={() => setMinDiscount("30")}>
+            <span aria-hidden>🔥</span> Meer dan 30% korting
+          </button>
+          <button type="button" className="quick-filter" onClick={() => setMaxPrice("2")}>
+            <span aria-hidden>💸</span> Onder €2
+          </button>
+          <button type="button" className="quick-filter" onClick={() => { setFilterCat("groente"); }}>
+            <span aria-hidden>🥦</span> Groente
+          </button>
+          <button type="button" className="quick-filter" onClick={() => { setFilterCat("fruit"); }}>
+            <span aria-hidden>🍎</span> Fruit
+          </button>
+          <button type="button" className="quick-filter" onClick={() => { setFilterCat("vlees"); }}>
+            <span aria-hidden>🍗</span> Vlees
+          </button>
+          <button type="button" className="quick-filter" onClick={() => { setFilterCat("vis"); }}>
+            <span aria-hidden>🐟</span> Vis
+          </button>
+          <button type="button" className="quick-filter" onClick={() => { setFilterCat("zuivel"); }}>
+            <span aria-hidden>🥛</span> Zuivel
+          </button>
+          <button type="button" className="quick-filter" onClick={() => { setFilterCat("pasta"); }}>
+            <span aria-hidden>🍝</span> Pasta
+          </button>
+        </div>
         <SupermarketFilter
           supermarkets={supermarkets}
           selected={selectedSlugs}
@@ -198,6 +226,15 @@ export default function OffersPage() {
             <span className="muted"> · pagina {page + 1} van {totalPages}</span>
           )}
         </span>
+        <label className="sort-label">
+          Sorteer:
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option value="price-asc">Prijs (laag → hoog)</option>
+            <option value="price-desc">Prijs (hoog → laag)</option>
+            <option value="discount-desc">Hoogste korting</option>
+            <option value="name-asc">Naam (A → Z)</option>
+          </select>
+        </label>
       </div>
 
       {loading ? (
