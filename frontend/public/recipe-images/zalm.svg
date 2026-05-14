@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" role="img" aria-label="Zalm">
+  <defs><linearGradient id="bgZ" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFE0E0"/><stop offset="100%" stop-color="#FFAB91"/></linearGradient></defs>
+  <rect width="400" height="240" fill="url(#bgZ)"/>
+  <ellipse cx="200" cy="155" rx="120" ry="48" fill="#fff" stroke="#9E5005" stroke-width="3"/>
+  <path d="M120 155 Q160 110 200 130 Q240 110 280 155 Q240 200 200 180 Q160 200 120 155 Z" fill="#FF8A65"/>
+  <path d="M140 155 Q200 135 260 155 Q200 175 140 155 Z" fill="#FFAB91" opacity="0.6"/>
+  <ellipse cx="200" cy="155" rx="50" ry="6" fill="#fff" opacity="0.5"/>
+  <ellipse cx="200" cy="148" rx="50" ry="3" fill="#fff" opacity="0.5"/>
+  <ellipse cx="120" cy="200" rx="40" ry="10" fill="#7CB342"/>
+  <text x="200" y="225" font-family="-apple-system, Arial" font-size="14" font-weight="600" text-anchor="middle" fill="#8B2D00">Zalm</text>
+</svg>

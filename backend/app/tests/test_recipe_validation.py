@@ -11,9 +11,10 @@ from app.schemas.recipe import (
 def test_request_defaults():
     req = RecipeGenerateRequest()
     assert req.servings == 2
-    assert req.count == 3
+    assert req.count == 12
     assert req.diets == []
     assert req.use_llm is False
+    assert req.allow_multi_supermarket is False
 
 
 def test_invalid_servings_rejected():
@@ -31,7 +32,9 @@ def test_llm_recipe_requires_ingredient_names():
         LLMRecipe(
             title="Test",
             description="x",
-            instructions=["stap"],
+            instructions=[
+                "stap 1", "stap 2", "stap 3", "stap 4", "stap 5", "stap 6",
+            ],
             prep_time_minutes=10,
             servings=2,
             ingredients=[{"name": "", "quantity": 100, "unit": "g"}],
@@ -40,13 +43,33 @@ def test_llm_recipe_requires_ingredient_names():
         )
 
 
+def test_llm_recipe_requires_six_steps():
+    with pytest.raises(ValidationError) as exc_info:
+        LLMRecipe(
+            title="Test",
+            description="x",
+            instructions=["kook", "serveer"],
+            prep_time_minutes=10,
+            servings=2,
+            ingredients=[{"name": "Pasta", "quantity": 100, "unit": "g"}],
+        )
+    assert "minimaal 6 kookstappen" in str(exc_info.value)
+
+
 def test_llm_recipe_list_parses():
     raw = {
         "recipes": [
             {
                 "title": "Pasta",
                 "description": "Snel",
-                "instructions": ["kook"],
+                "instructions": [
+                    "Breng water aan de kook.",
+                    "Voeg pasta toe.",
+                    "Kook 9 minuten.",
+                    "Verhit een pan met olie.",
+                    "Voeg knoflook toe en bak kort.",
+                    "Meng met de pasta en serveer.",
+                ],
                 "prep_time_minutes": 15,
                 "servings": 2,
                 "ingredients": [
@@ -60,3 +83,4 @@ def test_llm_recipe_list_parses():
     parsed = LLMRecipeList.model_validate(raw)
     assert len(parsed.recipes) == 1
     assert parsed.recipes[0].ingredients[0].name == "Pasta"
+    assert len(parsed.recipes[0].instructions) >= 6

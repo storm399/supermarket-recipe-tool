@@ -11,19 +11,34 @@ modulaire scraper-klasse waarin je later de echte ophaal-logica plaatst.
 
 ## Functies
 
-- **Aanbiedingen** verzamelen van 10 Nederlandse supermarkten (MVP: mockdata).
-- **Receptgenerator** die aanbiedingen combineert tot logische recepten in het
-  Nederlands, inclusief bereidingsstappen, kosten, ingrediënten en
-  ontbrekende standaardproducten.
-- **Filters**: aantal personen, dieet (vegetarisch, vegan, halal, lactosevrij,
-  glutenvrij), max bereidingstijd, min eiwit, max kcal, max budget per portie,
-  favoriete supermarkten en uit te sluiten ingrediënten.
+- **Aanbiedingen** verzamelen van 10 Nederlandse supermarkten — 320+ realistische
+  mockdata-items per build (32 per supermarkt) verdeeld over groente, fruit, vlees,
+  vis, zuivel, brood, pasta, rijst, peulvruchten, snacks, ontbijt, dranken en bio.
+- **Strikte supermarktfilter**: kies één of meerdere supermarkten en de tool
+  filtert zowel aanbiedingen als recepten — *geen rondrennen tussen vijf winkels*.
+- **Receptgenerator** levert minimaal 12 (of 6/24) gevarieerde recepten in het
+  Nederlands. Elk recept met:
+  - meal type (ontbijt/lunch/diner/snack/meal-prep) + moeilijkheidsgraad
+  - 6–10 concrete kookstappen met timing en temperatuur
+  - voorbereidingstijd, kooktijd, totale tijd
+  - kosten totaal + per portie
+  - "Waarom dit slim is met de aanbiedingen", serveer- en bewaartips, variaties
+  - allergenen, "wat koop je", "wat heb je in huis", ontbrekende boodschappen
+  - voedingswaarden, gezondheidsscore 0–100 en toepasselijke labels
+- **Filters**: aantal personen/recepten, dieet, meal types, max bereidingstijd,
+  min eiwit, max kcal, max budget per portie, min gezondheidsscore, favoriete
+  supermarkten, single-supermarket-mode, uit te sluiten ingrediënten.
 - **Voedingsinformatie** per portie (kcal, eiwit, koolhydraten, suiker, vet,
   verzadigd vet, vezels, zout) via een fallback-tabel met Open Food Facts als
   optionele bron.
 - **Gezondheidsscore (0–100)** met transparante uitleg en labels als
   *eiwitrijk*, *vezelrijk*, *caloriearm*, *veel zout*, *veel suiker*,
   *budgetvriendelijk*.
+- **Visuals**: SVG-logo's voor alle 10 supermarkten en SVG-illustraties per
+  receptype (pasta, salade, curry, soep, wrap, bowl, ovenschotel, ...).
+- **Statistieken**: dashboard met totaal aanbiedingen, gemiddelde korting,
+  aantal aanbiedingen per supermarkt, en duidelijke markering of de data
+  uit mock/scraper komt.
 - **AI-fallback**: optioneel een LLM (OpenAI-compatible) inschakelen voor
   creatievere recepten. Zonder API-key blijft de rule-based engine actief.
 - **Scheduled job** voor dagelijkse refresh, geschikt voor Render Cron Jobs.

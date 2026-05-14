@@ -1,4 +1,5 @@
 import type { Offer } from "../types";
+import { SupermarketLogo } from "./SupermarketLogo";
 
 interface Props {
   offer: Offer;
@@ -11,20 +12,22 @@ function formatAmount(o: Offer): string {
 
 export function OfferCard({ offer }: Props) {
   return (
-    <div className="offer">
-      <p className="name">{offer.product_name}</p>
-      {formatAmount(offer) && <div className="muted">{formatAmount(offer)}</div>}
-      <div className="price-row">
-        <span className="price">€{offer.sale_price.toFixed(2)}</span>
-        {offer.original_price && offer.original_price > offer.sale_price && (
-          <span className="original">€{offer.original_price.toFixed(2)}</span>
+    <article className="offer-card">
+      <header className="offer-card-head">
+        <SupermarketLogo slug={offer.supermarket.slug} name={offer.supermarket.name} size={26} />
+        {offer.discount_percent && offer.discount_percent > 0 && (
+          <span className="offer-badge">-{Math.round(offer.discount_percent)}%</span>
         )}
-        {offer.discount_percent && (
-          <span className="badge">-{Math.round(offer.discount_percent)}%</span>
+      </header>
+      <h3 className="offer-name">{offer.product_name}</h3>
+      <div className="offer-amount">{formatAmount(offer) || (offer.category ?? "")}</div>
+      <div className="offer-price-row">
+        <span className="offer-price">€{offer.sale_price.toFixed(2)}</span>
+        {offer.original_price && offer.original_price > offer.sale_price && (
+          <span className="offer-original">€{offer.original_price.toFixed(2)}</span>
         )}
       </div>
-      <div className="supermarket-tag">{offer.supermarket.name}</div>
-      {offer.discount_text && <div className="muted">{offer.discount_text}</div>}
-    </div>
+      {offer.discount_text && <div className="offer-discount-text">{offer.discount_text}</div>}
+    </article>
   );
 }

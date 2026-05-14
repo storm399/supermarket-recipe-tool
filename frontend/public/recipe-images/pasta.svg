@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" role="img" aria-label="Pasta">
+  <defs>
+    <linearGradient id="bgP" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFEFD5"/>
+      <stop offset="100%" stop-color="#FFCC80"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" fill="url(#bgP)"/>
+  <ellipse cx="200" cy="150" rx="115" ry="45" fill="#fff" stroke="#bb8a3f" stroke-width="3"/>
+  <g fill="none" stroke="#F4A024" stroke-width="5" stroke-linecap="round">
+    <path d="M120 145 Q150 130 180 145 T240 145 T300 145"/>
+    <path d="M125 160 Q155 145 185 160 T245 160 T295 160"/>
+    <path d="M130 175 Q160 160 190 175 T245 175 T295 175"/>
+  </g>
+  <circle cx="170" cy="155" r="8" fill="#E74C3C"/>
+  <circle cx="225" cy="148" r="7" fill="#E74C3C"/>
+  <circle cx="250" cy="170" r="9" fill="#E74C3C"/>
+  <ellipse cx="200" cy="155" rx="12" ry="5" fill="#2d8a4f"/>
+  <text x="200" y="222" font-family="-apple-system, Arial" font-size="14" font-weight="600" text-anchor="middle" fill="#7c4f0a">Pasta</text>
+</svg>

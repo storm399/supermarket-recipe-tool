@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60" role="img" aria-label="Aldi">
+  <rect width="120" height="60" rx="10" fill="#FFFFFF" stroke="#1F4E9D" stroke-width="3"/>
+  <text x="60" y="40" font-family="-apple-system, Helvetica, Arial, sans-serif" font-weight="800" font-size="26" text-anchor="middle" fill="#E2001A">A<tspan fill="#F39200">L</tspan><tspan fill="#1F4E9D">D</tspan><tspan fill="#009639">I</tspan></text>
+</svg>

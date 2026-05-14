@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" role="img" aria-label="Stamppot">
+  <defs><linearGradient id="bgSt" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F1F8E9"/><stop offset="100%" stop-color="#DCE775"/></linearGradient></defs>
+  <rect width="400" height="240" fill="url(#bgSt)"/>
+  <ellipse cx="200" cy="160" rx="120" ry="50" fill="#fff" stroke="#A57F1B" stroke-width="3"/>
+  <ellipse cx="200" cy="160" rx="108" ry="42" fill="#F5E6B8"/>
+  <path d="M120 145 Q160 130 200 145 Q240 130 280 145" stroke="#558B2F" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M115 165 Q155 150 195 165 Q235 150 285 165" stroke="#7CB342" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <circle cx="200" cy="148" r="14" fill="#A1887F"/>
+  <text x="200" y="148" font-family="-apple-system, Arial" font-size="14" font-weight="700" text-anchor="middle" fill="#fff">jus</text>
+  <text x="200" y="225" font-family="-apple-system, Arial" font-size="14" font-weight="600" text-anchor="middle" fill="#33691E">Stamppot</text>
+</svg>

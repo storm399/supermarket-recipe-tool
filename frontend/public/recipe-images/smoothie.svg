@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" role="img" aria-label="Smoothie">
+  <defs><linearGradient id="bgSm" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FCE4EC"/><stop offset="100%" stop-color="#F48FB1"/></linearGradient></defs>
+  <rect width="400" height="240" fill="url(#bgSm)"/>
+  <ellipse cx="200" cy="155" rx="115" ry="45" fill="#fff" stroke="#AD1457" stroke-width="3"/>
+  <ellipse cx="200" cy="150" rx="100" ry="35" fill="#EC407A"/>
+  <circle cx="160" cy="140" r="9" fill="#fff"/>
+  <circle cx="200" cy="135" r="11" fill="#FF8A65"/>
+  <circle cx="240" cy="142" r="8" fill="#fff"/>
+  <circle cx="175" cy="155" r="6" fill="#7B1FA2"/>
+  <circle cx="225" cy="156" r="6" fill="#7B1FA2"/>
+  <ellipse cx="200" cy="165" rx="60" ry="4" fill="#FFAB91" opacity="0.5"/>
+  <rect x="245" y="100" width="6" height="50" fill="#FFEB3B" rx="3"/>
+  <text x="200" y="222" font-family="-apple-system, Arial" font-size="14" font-weight="600" text-anchor="middle" fill="#AD1457">Smoothie bowl</text>
+</svg>

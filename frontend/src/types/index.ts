@@ -29,6 +29,14 @@ export interface OfferList {
   offers: Offer[];
 }
 
+export interface OfferStats {
+  total: number;
+  by_supermarket: Record<string, number>;
+  by_category: Record<string, number>;
+  average_discount_percent: number | null;
+  source: string;
+}
+
 export interface RecipeIngredient {
   name: string;
   quantity: number | null;
@@ -37,6 +45,9 @@ export interface RecipeIngredient {
   estimated_cost: number | null;
   offer_id: number | null;
   note: string | null;
+  supermarket_slug: string | null;
+  supermarket_name: string | null;
+  offer_product_name: string | null;
 }
 
 export interface Nutrition {
@@ -57,18 +68,41 @@ export interface Health {
   labels: string[];
 }
 
+export interface RecipeSupermarketUse {
+  slug: string;
+  name: string;
+  offer_count: number;
+}
+
+export type MealType = "ontbijt" | "lunch" | "diner" | "snack" | "meal-prep";
+export type Difficulty = "makkelijk" | "gemiddeld" | "uitdagend";
+
 export interface Recipe {
   id: number | null;
   title: string;
   description: string | null;
+  meal_type: MealType;
+  difficulty: Difficulty;
   instructions: string[];
   servings: number;
   prep_time_minutes: number | null;
+  cook_time_minutes: number | null;
+  total_time_minutes: number | null;
   total_cost: number | null;
   cost_per_serving: number | null;
   diet_tags: string[];
   missing_pantry_items: string[];
+  allergens: string[];
+  serving_tips: string[];
+  storage_tips: string[];
+  variations: string[];
   ingredients: RecipeIngredient[];
+  supermarkets_used: RecipeSupermarketUse[];
+  why_smart: string | null;
+  shopping_items: string[];
+  pantry_items: string[];
+  image_url: string | null;
+  image_key: string | null;
   nutrition: Nutrition;
   health: Health;
   generated_by: string;
@@ -85,11 +119,14 @@ export type DietTag =
 export interface RecipeRequest {
   servings: number;
   diets: DietTag[];
+  meal_types: MealType[];
   max_prep_minutes: number | null;
   min_protein_g: number | null;
   max_kcal_per_serving: number | null;
   max_budget_per_serving: number | null;
-  favorite_supermarkets: string[];
+  min_health_score: number | null;
+  selected_supermarkets: string[];
+  allow_multi_supermarket: boolean;
   exclude_ingredients: string[];
   count: number;
   use_llm: boolean;

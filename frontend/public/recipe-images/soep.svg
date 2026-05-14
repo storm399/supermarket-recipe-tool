@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" role="img" aria-label="Soep">
+  <defs><linearGradient id="bgSo" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFF8E1"/><stop offset="100%" stop-color="#FFCA28"/></linearGradient></defs>
+  <rect width="400" height="240" fill="url(#bgSo)"/>
+  <ellipse cx="200" cy="160" rx="120" ry="50" fill="#fff" stroke="#A57F1B" stroke-width="3"/>
+  <ellipse cx="200" cy="160" rx="108" ry="42" fill="#E67E22"/>
+  <circle cx="170" cy="150" r="6" fill="#fff"/>
+  <circle cx="220" cy="155" r="5" fill="#fff"/>
+  <circle cx="195" cy="170" r="6" fill="#fff"/>
+  <circle cx="240" cy="165" r="5" fill="#fff"/>
+  <circle cx="160" cy="170" r="5" fill="#7CB342"/>
+  <circle cx="230" cy="145" r="4" fill="#7CB342"/>
+  <path d="M180 105 Q175 90 185 80" stroke="#aaa" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M210 105 Q205 90 215 80" stroke="#aaa" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <text x="200" y="227" font-family="-apple-system, Arial" font-size="14" font-weight="600" text-anchor="middle" fill="#7c4f0a">Soep</text>
+</svg>

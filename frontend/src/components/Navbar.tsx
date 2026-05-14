@@ -5,12 +5,12 @@ export function Navbar() {
     <header className="navbar">
       <div className="navbar-inner">
         <NavLink to="/" className="brand">
-          🥦 Supermarkt Recepten
+          <span className="brand-emoji" aria-hidden>🥦</span>
+          <span>Supermarkt<strong>Recepten</strong></span>
         </NavLink>
         <nav>
-          <NavLink to="/" end>
-            Aanbiedingen
-          </NavLink>
+          <NavLink to="/" end>Home</NavLink>
+          <NavLink to="/aanbiedingen">Aanbiedingen</NavLink>
           <NavLink to="/recepten">Recepten</NavLink>
         </nav>
       </div>

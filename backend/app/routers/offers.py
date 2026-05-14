@@ -2,17 +2,39 @@ from __future__ import annotations
 
 import logging
 from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy import func
 from sqlalchemy.orm import Session, joinedload
 
+from app.config import settings
 from app.database import get_db
 from app.models.offer import Offer
 from app.models.supermarket import Supermarket
 from app.schemas.offer import OfferListResponse, OfferOut
+from app.schemas.recipe import OfferStats
 from app.schemas.supermarket import SupermarketOut
 from app.services.offer_service import refresh_all_offers, refresh_supermarket
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api", tags=["offers"])
+
+
+def _apply_offer_filters(query, *, supermarkets, supermarket, category, q, max_price, min_discount, has_image):
+    if supermarkets:
+        slugs = [s.strip() for s in supermarkets.split(",") if s.strip()]
+        query = query.join(Supermarket).filter(Supermarket.slug.in_(slugs))
+    elif supermarket:
+        query = query.join(Supermarket).filter(Supermarket.slug == supermarket)
+    if category:
+        query = query.filter(Offer.category == category)
+    if q:
+        query = query.filter(Offer.product_name.ilike(f"%{q}%"))
+    if max_price is not None:
+        query = query.filter(Offer.sale_price <= max_price)
+    if min_discount is not None:
+        query = query.filter(Offer.discount_percent >= min_discount)
+    if has_image:
+        query = query.filter(Offer.image_url.isnot(None))
+    return query
 
 
 @router.get("/supermarkets", response_model=list[SupermarketOut])
@@ -22,28 +44,84 @@ def list_supermarkets(db: Session = Depends(get_db)) -> list[Supermarket]:
 
 @router.get("/offers", response_model=OfferListResponse)
 def list_offers(
-    supermarket: str | None = Query(None, description="Slug van supermarkt"),
+    supermarket: str | None = Query(None, description="Slug van enkele supermarkt"),
+    supermarkets: str | None = Query(None, description="Komma-gescheiden slugs"),
     category: str | None = Query(None),
     q: str | None = Query(None, description="Zoekterm in productnaam"),
     max_price: float | None = Query(None, ge=0),
-    limit: int = Query(100, ge=1, le=1000),
+    min_discount: float | None = Query(None, ge=0, le=100),
+    has_image: bool = Query(False),
+    limit: int = Query(50, ge=1, le=1000),
     offset: int = Query(0, ge=0),
     db: Session = Depends(get_db),
 ) -> OfferListResponse:
     query = db.query(Offer).options(joinedload(Offer.supermarket))
-    if supermarket:
-        query = query.join(Supermarket).filter(Supermarket.slug == supermarket)
-    if category:
-        query = query.filter(Offer.category == category)
-    if q:
-        query = query.filter(Offer.product_name.ilike(f"%{q}%"))
-    if max_price is not None:
-        query = query.filter(Offer.sale_price <= max_price)
+    query = _apply_offer_filters(
+        query,
+        supermarkets=supermarkets,
+        supermarket=supermarket,
+        category=category,
+        q=q,
+        max_price=max_price,
+        min_discount=min_discount,
+        has_image=has_image,
+    )
     total = query.count()
     rows = (
         query.order_by(Offer.sale_price.asc()).offset(offset).limit(limit).all()
     )
     return OfferListResponse(total=total, offers=[OfferOut.model_validate(o) for o in rows])
+
+
+@router.get("/offers/stats", response_model=OfferStats)
+def offer_stats(
+    supermarket: str | None = Query(None),
+    supermarkets: str | None = Query(None),
+    category: str | None = Query(None),
+    q: str | None = Query(None),
+    max_price: float | None = Query(None, ge=0),
+    min_discount: float | None = Query(None, ge=0, le=100),
+    has_image: bool = Query(False),
+    db: Session = Depends(get_db),
+) -> OfferStats:
+    base = db.query(Offer)
+    base = _apply_offer_filters(
+        base,
+        supermarkets=supermarkets,
+        supermarket=supermarket,
+        category=category,
+        q=q,
+        max_price=max_price,
+        min_discount=min_discount,
+        has_image=has_image,
+    )
+    total = base.count()
+
+    by_sm_rows = (
+        db.query(Supermarket.slug, func.count(Offer.id))
+        .join(Offer, Offer.supermarket_id == Supermarket.id)
+        .group_by(Supermarket.slug)
+        .all()
+    )
+    by_supermarket = {slug: cnt for slug, cnt in by_sm_rows}
+
+    by_cat_rows = (
+        db.query(Offer.category, func.count(Offer.id))
+        .group_by(Offer.category)
+        .all()
+    )
+    by_category = {(cat or "overig"): cnt for cat, cnt in by_cat_rows}
+
+    avg_discount = db.query(func.avg(Offer.discount_percent)).scalar()
+    avg_discount = round(avg_discount, 1) if avg_discount is not None else None
+
+    return OfferStats(
+        total=total,
+        by_supermarket=by_supermarket,
+        by_category=by_category,
+        average_discount_percent=avg_discount,
+        source="mock" if settings.USE_MOCK_SCRAPERS else "live",
+    )
 
 
 @router.get("/offers/categories", response_model=list[str])

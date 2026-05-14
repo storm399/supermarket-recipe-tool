@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" role="img" aria-label="Curry">
+  <defs>
+    <linearGradient id="bgC" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF3E0"/>
+      <stop offset="100%" stop-color="#FFB74D"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" fill="url(#bgC)"/>
+  <ellipse cx="200" cy="150" rx="115" ry="45" fill="#fff" stroke="#9E5005" stroke-width="3"/>
+  <ellipse cx="200" cy="150" rx="105" ry="38" fill="#F4A024"/>
+  <circle cx="160" cy="142" r="8" fill="#C0392B"/>
+  <circle cx="200" cy="138" r="7" fill="#fff"/>
+  <circle cx="240" cy="148" r="9" fill="#7CB342"/>
+  <circle cx="180" cy="165" r="7" fill="#fff"/>
+  <circle cx="225" cy="165" r="6" fill="#C0392B"/>
+  <ellipse cx="200" cy="155" rx="8" ry="3" fill="#5B4636"/>
+  <text x="200" y="222" font-family="-apple-system, Arial" font-size="14" font-weight="600" text-anchor="middle" fill="#7c4f0a">Curry</text>
+</svg>

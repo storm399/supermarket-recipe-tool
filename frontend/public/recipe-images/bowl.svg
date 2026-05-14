@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" role="img" aria-label="Bowl">
+  <defs><linearGradient id="bgB" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E8F5E9"/><stop offset="100%" stop-color="#C5E1A5"/></linearGradient></defs>
+  <rect width="400" height="240" fill="url(#bgB)"/>
+  <ellipse cx="200" cy="155" rx="125" ry="55" fill="#fff" stroke="#5B7C2A" stroke-width="3"/>
+  <path d="M85 155 Q200 235 315 155 L300 155 Q200 215 100 155 Z" fill="#9CCC65"/>
+  <circle cx="140" cy="140" r="14" fill="#FFB300"/>
+  <circle cx="180" cy="135" r="13" fill="#E74C3C"/>
+  <circle cx="220" cy="140" r="12" fill="#7CB342"/>
+  <circle cx="260" cy="138" r="14" fill="#9C27B0"/>
+  <ellipse cx="200" cy="170" rx="40" ry="6" fill="#FFF" opacity="0.6"/>
+  <text x="200" y="225" font-family="-apple-system, Arial" font-size="14" font-weight="600" text-anchor="middle" fill="#33691E">Bowl</text>
+</svg>
