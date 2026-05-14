@@ -23,8 +23,15 @@ def main() -> int:
     db = SessionLocal()
     try:
         results = refresh_all_offers(db)
-        total = sum(results.values())
-        logger.info("Klaar. %d aanbiedingen opgehaald: %s", total, results)
+        total = sum(r.saved for r in results)
+        logger.info(
+            "Klaar. %d aanbiedingen opgeslagen. Per supermarkt: %s",
+            total,
+            {r.supermarket: f"{r.saved}({r.source})" for r in results},
+        )
+        for r in results:
+            if not r.ok:
+                logger.warning("FAIL %s: %s", r.supermarket, r.error)
         return 0
     except Exception:  # noqa: BLE001
         logger.exception("Fetch job mislukt")

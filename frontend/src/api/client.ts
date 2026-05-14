@@ -1,9 +1,9 @@
 import type {
-  Offer,
   OfferList,
   OfferStats,
   Recipe,
   RecipeRequest,
+  RefreshResponse,
   Supermarket,
 } from "../types";
 
@@ -47,6 +47,7 @@ export interface OfferFilters {
   max_price?: number;
   min_discount?: number;
   has_image?: boolean;
+  source?: string;
   limit?: number;
   offset?: number;
 }
@@ -63,6 +64,7 @@ function buildOfferParams(filters: OfferFilters): URLSearchParams {
   if (filters.max_price != null) p.set("max_price", String(filters.max_price));
   if (filters.min_discount != null) p.set("min_discount", String(filters.min_discount));
   if (filters.has_image) p.set("has_image", "true");
+  if (filters.source) p.set("source", filters.source);
   if (filters.limit != null) p.set("limit", String(filters.limit));
   if (filters.offset != null) p.set("offset", String(filters.offset));
   return p;
@@ -81,7 +83,7 @@ export const api = {
   },
   refresh: (supermarket?: string) => {
     const qs = supermarket ? `?supermarket=${encodeURIComponent(supermarket)}` : "";
-    return request<{ ok: boolean }>(`/api/offers/refresh${qs}`, { method: "POST" });
+    return request<RefreshResponse>(`/api/offers/refresh${qs}`, { method: "POST" });
   },
   generateRecipes: (req: RecipeRequest) =>
     request<Recipe[]>("/api/recipes/generate", {

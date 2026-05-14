@@ -18,6 +18,7 @@ from datetime import datetime
 from typing import Iterable
 
 from app.data.pantry import is_pantry
+from app.data.recipe_images import photo_url_for
 from app.data.recipe_templates import RECIPE_TEMPLATES, RecipeTemplate
 from app.models.offer import Offer
 from app.schemas.recipe import (
@@ -271,6 +272,7 @@ def _build_recipe_from_template(
     cook_t = template.get("cook_time_minutes", 0) or 0
 
     image_key = template.get("image_key", "default")
+    photo_url = photo_url_for(image_key)
 
     return RecipeOut(
         title=template["title"],
@@ -295,7 +297,7 @@ def _build_recipe_from_template(
         why_smart=template.get("why_smart"),
         shopping_items=shopping_items,
         pantry_items=pantry_items_used,
-        image_url=f"/recipe-images/{image_key}.svg",
+        image_url=photo_url,
         image_key=image_key,
         nutrition=NutritionInfo(
             kcal=totals_per_serving.kcal,

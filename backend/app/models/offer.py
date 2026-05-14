@@ -28,6 +28,7 @@ class Offer(Base):
     image_url = Column(String(512), nullable=True)
     source_url = Column(String(512), nullable=True)
     description = Column(Text, nullable=True)
+    source = Column(String(32), nullable=False, default="fallback_mock", index=True)
 
     fetched_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
 

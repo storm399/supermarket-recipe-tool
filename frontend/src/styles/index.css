@@ -300,15 +300,19 @@ h3 { font-size: 1.1rem; margin: 0 0 0.5rem; }
   color: var(--primary-dark);
 }
 .stat-label { color: var(--muted); font-size: 0.85rem; }
-.stat-source {
-  display: inline-block;
-  padding: 0.2rem 0.55rem;
+.source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.18rem 0.55rem;
   border-radius: 12px;
   font-size: 0.8rem;
   font-weight: 600;
 }
-.stat-source.source-mock { background: #fff3cd; color: #7c4f0a; }
-.stat-source.source-live { background: #d4edda; color: #155724; }
+.source-badge.small { padding: 0.1rem 0.4rem; font-size: 0.7rem; }
+.source-badge.source-mock { background: #fff3cd; color: #7c4f0a; }
+.source-badge.source-live { background: #d4edda; color: #155724; }
+.source-badge.source-seed { background: #e1f5fe; color: #01579b; }
 
 .stats-by-supermarket {
   display: grid;
@@ -327,6 +331,33 @@ h3 { font-size: 1.1rem; margin: 0 0 0.5rem; }
 .stat-row-count {
   font-weight: 700;
   color: var(--primary-dark);
+  flex: 1;
+}
+.stat-row-refresh {
+  background: transparent;
+  border: none;
+  padding: 0.1rem 0.3rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.stat-row-refresh:hover { background: var(--primary-light); }
+.stat-row-result {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.1rem 0.4rem;
+  border-radius: 8px;
+}
+.stat-row-result.ok { background: #d4edda; color: #155724; }
+.stat-row-result.fail { background: #f8d7da; color: #721c24; }
+
+.refresh-summary {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-sm);
+  margin: 0.75rem 0;
+  font-size: 0.95rem;
 }
 
 /* ---------- Filter card ---------- */

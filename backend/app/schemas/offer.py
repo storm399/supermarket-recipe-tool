@@ -22,6 +22,8 @@ class ScrapedOffer(BaseModel):
     image_url: Optional[str] = None
     source_url: Optional[str] = None
     description: Optional[str] = None
+    # Bron-tracking: live_scraper, public_api, fallback_mock, manual_seed
+    source: str = "fallback_mock"
 
 
 class OfferCreate(ScrapedOffer):
@@ -44,6 +46,7 @@ class OfferOut(BaseModel):
     valid_until: Optional[datetime] = None
     image_url: Optional[str] = None
     source_url: Optional[str] = None
+    source: str = "fallback_mock"
     fetched_at: datetime
     supermarket: SupermarketOut
 
@@ -51,3 +54,21 @@ class OfferOut(BaseModel):
 class OfferListResponse(BaseModel):
     total: int
     offers: list[OfferOut]
+
+
+class ScrapeResult(BaseModel):
+    """Resultaat van een refresh-actie per supermarkt."""
+    supermarket: str
+    source: str  # live_scraper, public_api, fallback_mock
+    fetched: int
+    saved: int
+    duplicates_skipped: int
+    ok: bool
+    error: Optional[str] = None
+    duration_ms: int
+
+
+class RefreshResponse(BaseModel):
+    ok: bool
+    total: int
+    results: list[ScrapeResult]

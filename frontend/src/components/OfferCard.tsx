@@ -1,4 +1,5 @@
 import type { Offer } from "../types";
+import { SourceBadge } from "./SourceBadge";
 import { SupermarketLogo } from "./SupermarketLogo";
 
 interface Props {
@@ -28,6 +29,7 @@ export function OfferCard({ offer }: Props) {
         )}
       </div>
       {offer.discount_text && <div className="offer-discount-text">{offer.discount_text}</div>}
+      <SourceBadge source={offer.source} size="small" />
     </article>
   );
 }

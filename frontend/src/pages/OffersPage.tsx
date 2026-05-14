@@ -26,6 +26,7 @@ export default function OffersPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [refreshSummary, setRefreshSummary] = useState<string | null>(null);
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -72,11 +73,19 @@ export default function OffersPage() {
 
   async function refreshOffers() {
     setRefreshing(true);
+    setRefreshSummary(null);
     try {
-      await api.refresh();
-      const res = await api.offers({ limit: PAGE_SIZE });
-      setOffers(res.offers);
-      setTotal(res.total);
+      const res = await api.refresh();
+      const okCount = res.results.filter((r) => r.ok).length;
+      const failed = res.results.filter((r) => !r.ok);
+      const sources = new Set(res.results.map((r) => r.source));
+      let summary = `${res.total} aanbiedingen vernieuwd uit ${okCount}/${res.results.length} supermarkten`;
+      if (sources.has("live_scraper")) summary += " (deels live)";
+      if (failed.length > 0) summary += ` — ${failed.length} faalde, fallback gebruikt`;
+      setRefreshSummary(summary);
+      const offersRes = await api.offers({ limit: PAGE_SIZE });
+      setOffers(offersRes.offers);
+      setTotal(offersRes.total);
       setPage(0);
       setStats(await api.offerStats());
     } catch (e: any) {
@@ -121,12 +130,26 @@ export default function OffersPage() {
             Bekijk alle actuele aanbiedingen van 10 supermarkten en filter op wat je nodig hebt.
           </p>
         </div>
-        <button onClick={refreshOffers} disabled={refreshing}>
+        <button onClick={refreshOffers} disabled={refreshing} className="primary">
           {refreshing ? "Bezig…" : "Aanbiedingen vernieuwen"}
         </button>
       </header>
+      {refreshSummary && <div className="refresh-summary">✓ {refreshSummary}</div>}
 
-      {stats && <StatsPanel stats={stats} supermarkets={supermarkets} activeSlugs={selectedSlugs} />}
+      {stats && (
+        <StatsPanel
+          stats={stats}
+          supermarkets={supermarkets}
+          activeSlugs={selectedSlugs}
+          onRefreshed={async () => {
+            const st = await api.offerStats(filters);
+            setStats(st);
+            const res = await api.offers({ ...filters, limit: PAGE_SIZE, offset: page * PAGE_SIZE });
+            setOffers(res.offers);
+            setTotal(res.total);
+          }}
+        />
+      )}
 
       <section className="card filter-card">
         <h2>Filter aanbiedingen</h2>

@@ -11,9 +11,19 @@ modulaire scraper-klasse waarin je later de echte ophaal-logica plaatst.
 
 ## Functies
 
-- **Aanbiedingen** verzamelen van 10 Nederlandse supermarkten — 320+ realistische
-  mockdata-items per build (32 per supermarkt) verdeeld over groente, fruit, vlees,
-  vis, zuivel, brood, pasta, rijst, peulvruchten, snacks, ontbijt, dranken en bio.
+- **Aanbiedingen** verzamelen van 10 Nederlandse supermarkten — 536 mockdata-items
+  per build (50+ per supermarkt) verdeeld over 20 categorieën inclusief groente,
+  fruit, vlees, vis, vleesvervangers, zuivel, kaas, brood, pasta, rijst, peulvruchten,
+  diepvries, snacks, ontbijt, dranken, bio en huishouden.
+- **Hybride scrapers**: async architectuur per supermarkt met live-poging eerst
+  (AH Bonus-API en Jumbo Promotions-API), automatische fallback naar mock. Per
+  aanbieding wordt vastgelegd of de bron `live_scraper`, `public_api`,
+  `fallback_mock` of `manual_seed` is.
+- **Per-supermarkt refresh** met scrape-status response: fetched, saved,
+  duplicaten, bron en eventuele error per supermarkt.
+- **Echte foodfoto's**: 25+ recepten gekoppeld aan stabiele Unsplash CDN-URL's
+  met automatische fallback naar lokale SVG-illustraties bij offline / fout.
+- **42 receptsjablonen** met elk 6–10 concrete kookstappen.
 - **Strikte supermarktfilter**: kies één of meerdere supermarkten en de tool
   filtert zowel aanbiedingen als recepten — *geen rondrennen tussen vijf winkels*.
 - **Receptgenerator** levert minimaal 12 (of 6/24) gevarieerde recepten in het

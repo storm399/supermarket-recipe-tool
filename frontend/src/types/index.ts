@@ -20,8 +20,26 @@ export interface Offer {
   valid_until: string | null;
   image_url: string | null;
   source_url: string | null;
+  source: string;
   fetched_at: string;
   supermarket: Supermarket;
+}
+
+export interface ScrapeResult {
+  supermarket: string;
+  source: string;
+  fetched: number;
+  saved: number;
+  duplicates_skipped: number;
+  ok: boolean;
+  error: string | null;
+  duration_ms: number;
+}
+
+export interface RefreshResponse {
+  ok: boolean;
+  total: number;
+  results: ScrapeResult[];
 }
 
 export interface OfferList {

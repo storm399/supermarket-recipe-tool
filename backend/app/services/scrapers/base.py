@@ -1,16 +1,53 @@
 from __future__ import annotations
 
+import asyncio
 import logging
 import random
+import time
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from typing import Iterable
+
+import httpx
+from tenacity import AsyncRetrying, RetryError, stop_after_attempt, wait_exponential
 
 from app.config import settings
 from app.schemas.offer import ScrapedOffer
 
 logger = logging.getLogger(__name__)
+
+
+# Categorieen die we centraal benoemen zodat alle scrapers dezelfde
+# 'taxonomie' gebruiken. Een scraper mag zelf categorieen toevoegen,
+# maar deze lijst dekt de standaard supermarkt-afdelingen.
+STANDARD_CATEGORIES = [
+    "groente",
+    "fruit",
+    "aardappel",
+    "vlees",
+    "vis",
+    "vleesvervanger",
+    "ei",
+    "zuivel",
+    "zuivelvervanger",
+    "kaas",
+    "brood",
+    "ontbijt",
+    "pasta",
+    "rijst",
+    "graan",
+    "peulvrucht",
+    "blik",
+    "diepvries",
+    "snack",
+    "spread",
+    "drank",
+    "olie",
+    "biologisch",
+    "huishouden",
+    "verzorging",
+]
 
 
 @dataclass(frozen=True)
@@ -35,11 +72,27 @@ SUPERMARKETS: list[SupermarketDef] = [
 ]
 
 
-class BaseScraper(ABC):
-    """Basisklasse voor supermarkt-scrapers.
+@dataclass
+class ScrapeStats:
+    fetched: int = 0
+    saved: int = 0
+    duplicates_skipped: int = 0
+    duration_ms: int = 0
+    source: str = "fallback_mock"
+    ok: bool = False
+    error: str | None = None
+    raw_offers: list[ScrapedOffer] = field(default_factory=list)
 
-    Elke supermarkt heeft een eigen subclass zodat ze afzonderlijk
-    aangepast en getest kunnen worden zonder andere scrapers te raken.
+
+class BaseScraper(ABC):
+    """Async basisklasse voor supermarkt-scrapers.
+
+    Subclasses overriden:
+    - `fetch_live()`: probeer echte data op te halen via API/HTML.
+    - `mock_offers()`: lever uitgebreide fallback-aanbiedingen.
+
+    `fetch_offers()` is het publieke contract: probeert live, valt
+    terug op mock, levert altijd een resultaat plus stats.
     """
 
     slug: str = ""
@@ -50,26 +103,105 @@ class BaseScraper(ABC):
         self.user_agent = user_agent or settings.SCRAPER_USER_AGENT
         self.timeout = timeout or settings.SCRAPER_TIMEOUT
 
+    # ---- abstracte / overrideable ----
+
     @abstractmethod
-    def fetch_live(self) -> list[ScrapedOffer]:
-        """Haal echte aanbiedingen op. Subclasses implementeren dit."""
+    async def fetch_live(self, client: httpx.AsyncClient) -> list[ScrapedOffer]:
+        """Implementeer echte ophaal-logica. Werp bij gebrek aan data of fout."""
 
     @abstractmethod
     def mock_offers(self) -> list[ScrapedOffer]:
-        """Lever realistische mock-aanbiedingen voor MVP en tests."""
+        """Realistische fallback-aanbiedingen, gebruikt als live faalt."""
 
-    def scrape(self) -> list[ScrapedOffer]:
-        if settings.USE_MOCK_SCRAPERS:
-            offers = self.mock_offers()
-            logger.info("[%s] mock-modus: %d aanbiedingen", self.slug, len(offers))
-            return offers
-        try:
-            offers = self.fetch_live()
-            logger.info("[%s] live: %d aanbiedingen", self.slug, len(offers))
-            return offers
-        except Exception as exc:  # noqa: BLE001
-            logger.exception("[%s] scrape mislukt, val terug op mock: %s", self.slug, exc)
-            return self.mock_offers()
+    # ---- helpers ----
+
+    def _client(self) -> httpx.AsyncClient:
+        return httpx.AsyncClient(
+            headers={
+                "User-Agent": self.user_agent,
+                "Accept": "application/json, text/html;q=0.9, */*;q=0.8",
+                "Accept-Language": "nl-NL,nl;q=0.9,en;q=0.8",
+            },
+            timeout=self.timeout,
+            follow_redirects=True,
+        )
+
+    @staticmethod
+    def _dedupe(offers: Iterable[ScrapedOffer]) -> tuple[list[ScrapedOffer], int]:
+        seen: set[tuple[str, float]] = set()
+        result: list[ScrapedOffer] = []
+        dups = 0
+        for o in offers:
+            key = (o.product_name.strip().lower(), round(o.sale_price, 2))
+            if key in seen:
+                dups += 1
+                continue
+            seen.add(key)
+            result.append(o)
+        return result, dups
+
+    async def _try_live(self) -> list[ScrapedOffer]:
+        async with self._client() as client:
+            try:
+                async for attempt in AsyncRetrying(
+                    stop=stop_after_attempt(2),
+                    wait=wait_exponential(min=1, max=4),
+                    reraise=True,
+                ):
+                    with attempt:
+                        offers = await self.fetch_live(client)
+                        if not offers:
+                            raise RuntimeError("0 offers from live source")
+                        return offers
+            except (RetryError, Exception) as exc:  # noqa: BLE001
+                raise exc
+        return []  # niet bereikbaar
+
+    # ---- publieke entrypoint ----
+
+    async def fetch_offers(self) -> ScrapeStats:
+        start = time.time()
+        stats = ScrapeStats()
+
+        if not settings.USE_MOCK_SCRAPERS:
+            try:
+                live = await self._try_live()
+                deduped, dups = self._dedupe(live)
+                stats.raw_offers = deduped
+                stats.fetched = len(live)
+                stats.duplicates_skipped = dups
+                stats.source = "live_scraper"
+                stats.ok = True
+                logger.info(
+                    "[%s] live ok: %d items (%d dups)", self.slug, len(deduped), dups,
+                )
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("[%s] live faalde: %s -> val terug op mock", self.slug, exc)
+                stats.error = str(exc)
+                mock = self.mock_offers()
+                deduped, dups = self._dedupe(mock)
+                stats.raw_offers = deduped
+                stats.fetched = len(mock)
+                stats.duplicates_skipped = dups
+                stats.source = "fallback_mock"
+                stats.ok = True  # we hebben fallback dus succes
+        else:
+            mock = self.mock_offers()
+            deduped, dups = self._dedupe(mock)
+            stats.raw_offers = deduped
+            stats.fetched = len(mock)
+            stats.duplicates_skipped = dups
+            stats.source = "fallback_mock"
+            stats.ok = True
+            logger.info("[%s] mock-modus: %d items (%d dups)", self.slug, len(deduped), dups)
+
+        # zet source-veld op elke ScrapedOffer als die nog niet gezet is
+        for o in stats.raw_offers:
+            if o.source == "fallback_mock" and stats.source != "fallback_mock":
+                o.source = stats.source
+
+        stats.duration_ms = int((time.time() - start) * 1000)
+        return stats
 
 
 def make_offer(
@@ -85,8 +217,8 @@ def make_offer(
     description: str | None = None,
     valid_days: int = 7,
     discount_text: str | None = None,
+    source: str = "fallback_mock",
 ) -> ScrapedOffer:
-    """Helper voor het bouwen van een ScrapedOffer in mock-modus."""
     now = datetime.utcnow()
     valid_from = now - timedelta(days=random.randint(0, 1))
     valid_until = now + timedelta(days=valid_days)
@@ -107,6 +239,7 @@ def make_offer(
         image_url=image_url,
         source_url=source_url,
         description=description,
+        source=source,
     )
 
 

@@ -9,16 +9,23 @@ from app.config import settings
 from app.database import get_db
 from app.models.offer import Offer
 from app.models.supermarket import Supermarket
-from app.schemas.offer import OfferListResponse, OfferOut
+from app.schemas.offer import OfferListResponse, OfferOut, RefreshResponse
 from app.schemas.recipe import OfferStats
 from app.schemas.supermarket import SupermarketOut
-from app.services.offer_service import refresh_all_offers, refresh_supermarket
+from app.services.offer_service import (
+    refresh_all_offers_async,
+    refresh_supermarket_async,
+)
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api", tags=["offers"])
 
 
-def _apply_offer_filters(query, *, supermarkets, supermarket, category, q, max_price, min_discount, has_image):
+def _apply_offer_filters(
+    query, *,
+    supermarkets, supermarket, category, q,
+    max_price, min_discount, has_image, source,
+):
     if supermarkets:
         slugs = [s.strip() for s in supermarkets.split(",") if s.strip()]
         query = query.join(Supermarket).filter(Supermarket.slug.in_(slugs))
@@ -34,6 +41,8 @@ def _apply_offer_filters(query, *, supermarkets, supermarket, category, q, max_p
         query = query.filter(Offer.discount_percent >= min_discount)
     if has_image:
         query = query.filter(Offer.image_url.isnot(None))
+    if source:
+        query = query.filter(Offer.source == source)
     return query
 
 
@@ -44,13 +53,14 @@ def list_supermarkets(db: Session = Depends(get_db)) -> list[Supermarket]:
 
 @router.get("/offers", response_model=OfferListResponse)
 def list_offers(
-    supermarket: str | None = Query(None, description="Slug van enkele supermarkt"),
-    supermarkets: str | None = Query(None, description="Komma-gescheiden slugs"),
+    supermarket: str | None = Query(None),
+    supermarkets: str | None = Query(None),
     category: str | None = Query(None),
-    q: str | None = Query(None, description="Zoekterm in productnaam"),
+    q: str | None = Query(None),
     max_price: float | None = Query(None, ge=0),
     min_discount: float | None = Query(None, ge=0, le=100),
     has_image: bool = Query(False),
+    source: str | None = Query(None),
     limit: int = Query(50, ge=1, le=1000),
     offset: int = Query(0, ge=0),
     db: Session = Depends(get_db),
@@ -58,18 +68,11 @@ def list_offers(
     query = db.query(Offer).options(joinedload(Offer.supermarket))
     query = _apply_offer_filters(
         query,
-        supermarkets=supermarkets,
-        supermarket=supermarket,
-        category=category,
-        q=q,
-        max_price=max_price,
-        min_discount=min_discount,
-        has_image=has_image,
+        supermarkets=supermarkets, supermarket=supermarket, category=category, q=q,
+        max_price=max_price, min_discount=min_discount, has_image=has_image, source=source,
     )
     total = query.count()
-    rows = (
-        query.order_by(Offer.sale_price.asc()).offset(offset).limit(limit).all()
-    )
+    rows = query.order_by(Offer.sale_price.asc()).offset(offset).limit(limit).all()
     return OfferListResponse(total=total, offers=[OfferOut.model_validate(o) for o in rows])
 
 
@@ -82,18 +85,14 @@ def offer_stats(
     max_price: float | None = Query(None, ge=0),
     min_discount: float | None = Query(None, ge=0, le=100),
     has_image: bool = Query(False),
+    source: str | None = Query(None),
     db: Session = Depends(get_db),
 ) -> OfferStats:
     base = db.query(Offer)
     base = _apply_offer_filters(
         base,
-        supermarkets=supermarkets,
-        supermarket=supermarket,
-        category=category,
-        q=q,
-        max_price=max_price,
-        min_discount=min_discount,
-        has_image=has_image,
+        supermarkets=supermarkets, supermarket=supermarket, category=category, q=q,
+        max_price=max_price, min_discount=min_discount, has_image=has_image, source=source,
     )
     total = base.count()
 
@@ -115,12 +114,26 @@ def offer_stats(
     avg_discount = db.query(func.avg(Offer.discount_percent)).scalar()
     avg_discount = round(avg_discount, 1) if avg_discount is not None else None
 
+    # Bepaal de dominante bron op basis van werkelijke data, niet alleen
+    # de config-vlag.
+    src_rows = db.query(Offer.source, func.count(Offer.id)).group_by(Offer.source).all()
+    if src_rows:
+        sources = sorted(src_rows, key=lambda r: r[1], reverse=True)
+        if any(s == "live_scraper" for s, _ in src_rows):
+            primary_source = "live"
+        elif sources[0][0] == "public_api":
+            primary_source = "live"
+        else:
+            primary_source = "mock"
+    else:
+        primary_source = "mock" if settings.USE_MOCK_SCRAPERS else "live"
+
     return OfferStats(
         total=total,
         by_supermarket=by_supermarket,
         by_category=by_category,
         average_discount_percent=avg_discount,
-        source="mock" if settings.USE_MOCK_SCRAPERS else "live",
+        source=primary_source,
     )
 
 
@@ -130,17 +143,26 @@ def list_categories(db: Session = Depends(get_db)) -> list[str]:
     return sorted({r[0] for r in rows if r[0]})
 
 
-@router.post("/offers/refresh", response_model=dict)
-def trigger_refresh(
+@router.post("/offers/refresh", response_model=RefreshResponse)
+async def trigger_refresh(
     supermarket: str | None = Query(None, description="Specifieke supermarkt-slug (optioneel)"),
     db: Session = Depends(get_db),
-) -> dict:
+) -> RefreshResponse:
     try:
         if supermarket:
-            count = refresh_supermarket(db, supermarket)
-            return {"ok": True, "supermarket": supermarket, "count": count}
-        results = refresh_all_offers(db)
-        return {"ok": True, "results": results, "total": sum(results.values())}
+            result = await refresh_supermarket_async(db, supermarket)
+            return RefreshResponse(
+                ok=result.ok,
+                total=result.saved,
+                results=[result],
+            )
+        results = await refresh_all_offers_async(db)
+        total = sum(r.saved for r in results)
+        return RefreshResponse(
+            ok=any(r.ok for r in results),
+            total=total,
+            results=results,
+        )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except Exception as exc:  # noqa: BLE001

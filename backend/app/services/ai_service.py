@@ -222,6 +222,8 @@ def _llm_response_to_recipe(
     cook_t = llm_recipe.cook_time_minutes or 0
 
     image_key = (llm_recipe.meal_type or "diner").replace("-", "")
+    from app.data.recipe_images import photo_url_for
+    photo_url = photo_url_for(image_key) or f"/recipe-images/{image_key}.svg"
 
     return RecipeOut(
         title=llm_recipe.title,
@@ -248,7 +250,7 @@ def _llm_response_to_recipe(
         ],
         why_smart=None,
         shopping_items=shopping_items,
-        image_url=f"/recipe-images/{image_key}.svg",
+        image_url=photo_url,
         image_key=image_key,
         nutrition=NutritionInfo(
             kcal=totals.kcal,
