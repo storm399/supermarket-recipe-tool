@@ -47,22 +47,26 @@ services:
       - key: VITE_API_URL
         sync: false
 
-  - type: cron
-    name: supermarkt-recepten-fetch
-    runtime: python
-    plan: free
-    rootDir: backend
-    schedule: "0 4 * * *"   # elke dag om 04:00 UTC
-    buildCommand: pip install -r requirements.txt
-    startCommand: python -m app.jobs.fetch_offers
-    envVars:
-      - key: APP_ENV
-        value: production
-      - key: USE_MOCK_SCRAPERS
-        value: "true"
-      - key: DATABASE_URL
-        fromDatabase:
-          name: supermarkt-recepten-db
-          property: connectionString
-      - key: OPENFOODFACTS_USER_AGENT
-        sync: false
+# Cron Jobs vereisen een betaald Render-plan (Starter of hoger).
+# Zodra je upgradet kun je deze sectie weer aanzetten — of een externe
+# scheduler gebruiken die `POST /api/offers/refresh` aanroept.
+#
+#  - type: cron
+#    name: supermarkt-recepten-fetch
+#    runtime: python
+#    plan: starter
+#    rootDir: backend
+#    schedule: "0 4 * * *"
+#    buildCommand: pip install -r requirements.txt
+#    startCommand: python -m app.jobs.fetch_offers
+#    envVars:
+#      - key: APP_ENV
+#        value: production
+#      - key: USE_MOCK_SCRAPERS
+#        value: "true"
+#      - key: DATABASE_URL
+#        fromDatabase:
+#          name: supermarkt-recepten-db
+#          property: connectionString
+#      - key: OPENFOODFACTS_USER_AGENT
+#        sync: false
